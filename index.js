@@ -4,10 +4,18 @@ var session = require('express-session');
 var MongoStore = require('connect-mongo')(session);
 var flash = require('connect-flash');
 var config = require('config-lite');
-var routes = require('./routes');
+var NodeRoutes = require('./server/noderoutes');
 var pkg = require('./package');
 var winston = require('winston');
 var expressWinston = require('express-winston');
+
+
+
+//react服务端渲染配置
+import {renderToString} from 'react-dom/server';
+import {match, RoutingContext} from 'react-router';
+import AppRoutes from './common/AppRoutes';
+import renderFullPage from './server/lib/viewpage';
 
 var app = express();
 
@@ -65,6 +73,38 @@ app.use(expressWinston.logger({
 }));
 // 路由
 routes(app);
+
+
+
+app.use((req, res)=>{
+
+  match( {AppRoutes, location:req.url}, (err, redirectLocation, renderProps)=>{
+    
+    console.log(err);
+    console.log(redirectLocation);
+    console.log(renderProps);
+
+    if(err) {
+      res.status(500).send(err.message);
+    }else if(redirectLocation) {
+      res.redirect(302, redirectLocation.pathname+redirectLocation.search);      
+    }else if(renderProps) {
+      let marked = renderToString(<RouterContext {...renderProps}/>);
+      res.status(200).end(marked);            
+    }else {
+      let notFoundPage = renderToString(<NotFoundPage/>);
+      res.status(404).end(notFoundPage);
+    }
+  });
+});
+
+
+
+
+
+
+
+
 // 错误请求的日志
 app.use(expressWinston.errorLogger({
   transports: [
