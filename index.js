@@ -72,7 +72,7 @@ app.use(expressWinston.logger({
   ]
 }));
 // 路由
-routes(app);
+// routes(app);
 
 
 
@@ -89,17 +89,14 @@ app.use((req, res)=>{
     }else if(redirectLocation) {
       res.redirect(302, redirectLocation.pathname+redirectLocation.search);      
     }else if(renderProps) {
-      let marked = renderToString(<RouterContext {...renderProps}/>);
-      res.status(200).end(marked);            
+      // let marked = renderToString(<RouterContext {...renderProps}/>);
+      // res.status(200).end(marked);            
     }else {
-      let notFoundPage = renderToString(<NotFoundPage/>);
-      res.status(404).end(notFoundPage);
+      // let notFoundPage = renderToString(<NotFoundPage/>);
+      // res.status(404).end(notFoundPage);
     }
   });
 });
-
-
-
 
 
 
