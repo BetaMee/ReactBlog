@@ -5,6 +5,7 @@ import fetch from 'isomorphic-fetch';
  * 与post相关
  */
 export const INVALIDATE_POSTS = 'INVALIDATE_POSTS';
+export const REQUEST_CREATE_POST_BY_USERID= 'REQUEST_CREATE_POST_BY_USERID';
 export const REQUEST_UPDATE_POST_BY_ID = 'REQUEST_UPDATE_POST_BY_ID';
 export const REQUEST_DEL_POST_BY_ID = 'REQUEST_DEL_POST_BY_ID';
 export const REQUEST_POSTS = 'REQUEST_POSTS';
@@ -32,6 +33,13 @@ function requestDeletePostById() {//只返回一个正在请求的状态
   }
 }
 
+
+function requestCreatePostByUser() {
+  return {
+    type: REQUEST_CREATE_POST_BY_USERID,
+  }
+}
+
 function receivePosts(jsonData) {
   return {
     type:RECEIVE_POSTS,
@@ -55,6 +63,28 @@ export function fetchPosts() {
   }
 }
 
+
+export function createPostByUser(post, user){
+  return (dispatch,getState)=>{
+    dispatch(requestCreatePostByUser());//先表明正在请求    
+    
+    
+    let option={
+      method:'post',
+      headers:{
+        'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8'
+      },
+      body:{
+        post,
+        user
+      }
+    };
+    return fetch('/api/post',option)
+            .then(res=>res.json())
+            .then(json=>dispatch(receivePosts()))
+            .catch(()=>dispatch(errorGetPost()));
+  }
+}
 export function updatePostById(postId) {
   return (dispatch,getState) =>{
     dispatch(requestPosts());//先表明正在请求    
