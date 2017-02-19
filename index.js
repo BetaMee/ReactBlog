@@ -12,10 +12,12 @@ var expressWinston = require('express-winston');
 
 
 //react服务端渲染配置
+import {Provider} from 'react-redux';
 import {renderToString} from 'react-dom/server';
 import {match, RoutingContext} from 'react-router';
 import AppRoutes from './common/AppRoutes';
 import renderFullPage from './server/lib/viewpage';
+import  configureStore from './common/store/store';
 
 var app = express();
 
@@ -89,8 +91,21 @@ app.use((req, res)=>{
     }else if(redirectLocation) {
       res.redirect(302, redirectLocation.pathname+redirectLocation.search);      
     }else if(renderProps) {
-      // let marked = renderToString(<RouterContext {...renderProps}/>);
-      // res.status(200).end(marked);            
+      const store = configureStore();
+      const state = store.getState();
+
+      Promise.all([
+        store.dispatch(),
+        store.dispatch()
+      ])
+      .then(()=>{
+        const html = renderToString(
+          <Provider store={store}>
+            <RoutingContext {...renderProps}/>
+          </Provider>
+        );
+        res.end(renderFullPage(html,store.getState()));
+      });
     }else {
       // let notFoundPage = renderToString(<NotFoundPage/>);
       // res.status(404).end(notFoundPage);
