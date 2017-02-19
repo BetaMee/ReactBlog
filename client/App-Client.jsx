@@ -6,7 +6,7 @@ import AppRoutes from '../common/AppRoutes.js';
 
 //状态管理
 import {Provider} from 'react-redux';
-import configureStore from '../common/store/store.js';
+import configureStore from '../common/store/index.js';
 
 
 // `__INITIAL_STATE__` 来自服务器端渲染
