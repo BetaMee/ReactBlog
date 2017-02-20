@@ -1,7 +1,7 @@
 import {ADD_COUNT} from '../action/counteraction';
 
 
-export default counterReducer=(state=0, action)=>{
+const counterReducer=(state=0, action)=>{
   switch(action.type) {
     case ADD_COUNT:
       return state+1;
@@ -9,3 +9,5 @@ export default counterReducer=(state=0, action)=>{
       return state;
   }
 }
+
+export default counterReducer;

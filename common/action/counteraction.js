@@ -1,8 +1,10 @@
 
 export const ADD_COUNT = 'ADD_COUNT';
 
-export default function counterAction() {
+const counterAction=()=> {
   return {
     type: ADD_COUNT
   }
 }
+
+export default counterAction;
