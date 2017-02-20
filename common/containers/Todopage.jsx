@@ -1,5 +1,5 @@
 import {connect} from 'react-redux';
-import Todo from '../components/Todo';
+import Todo from '../components/Todo.jsx';
 import {bindActionCreators} from 'redux';
 import  todoAction from '../action/todoaction.js';
 

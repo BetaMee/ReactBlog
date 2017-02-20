@@ -36,12 +36,19 @@ app.get("*",(req, res)=>{
 
     }else if(renderProps) {
       var initialState = {
-        count:1,
+        count:{
+          num:1,
+          isFetching:false,
+          data:{
+            post:"hhhh"
+          }
+        },
         todo:['haha']
       };
       
       const store = configureStore(initialState);
 
+      console.log(store.getState());
       let marked = renderToString(
         <Provider store={store}>
           <RouterContext {...renderProps}/>          

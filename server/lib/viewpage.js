@@ -12,9 +12,9 @@ function renderFullPage(html, initiaState) {
         </div>
       </div>
       <script>
-        window.__INITIAL_STATE__ = ${JSON.stringify(initialState)};
+        window.__INITIAL_STATE__ = ${JSON.stringify(initiaState)};
       </script>
-      <script src="/js/bundle.js"></script>
+      <script src="/js/client.bundle.js"></script>
     </body>
     </html>
   `;
