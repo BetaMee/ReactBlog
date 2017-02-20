@@ -66,7 +66,7 @@ app.locals.blog = {
 
 app.use((req, res)=>{
 
-  match( {AppRoutes, location:req.url}, (err, redirectLocation, renderProps)=>{
+  match( {routes:AppRoutes, location:req.url}, (err, redirectLocation, renderProps)=>{
     
     console.log(err);
     console.log(redirectLocation);
