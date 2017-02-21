@@ -1,6 +1,6 @@
-function renderFullPage(html, initialState) {
+function renderFullPage(html, initiaState) {
   return `
-       <!DOCTYPE html>
+    <!DOCTYPE html>
     <html lang="en">
     <head>
       <meta charset="UTF-8">
@@ -11,6 +11,9 @@ function renderFullPage(html, initialState) {
           ${html}
         </div>
       </div>
+      <script>
+        window.__INITIAL_STATE__ = ${JSON.stringify(initiaState)};
+      </script>
       <script src="/js/client.bundle.js"></script>
     </body>
     </html>
