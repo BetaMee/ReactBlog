@@ -1,11 +1,12 @@
-import userReducer from './user';
-import postsReducer from './posts';
+import { combineReducers }from 'redux';
+import UserReducer from './UserReducer';
+import PostsReducer from './PostsReducer';
 
-const initialState={};
 
-export default rootReducer=(state=initialState, action)=>{
-  return {
-    userReducer:userReducer(state.user, action),
-    postsReducer:postsReducer(state.posts, action)
-  }
-}
+
+
+const rootReducer=combineReducers({
+    user:UserReducer,
+    posts:PostsReducer
+});
+export default rootReducer;

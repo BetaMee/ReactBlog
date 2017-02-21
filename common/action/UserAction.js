@@ -58,7 +58,7 @@ function errorUserHandle(){
 
 
 
-export default UserSignin=(username,password)=>{//登录
+export const UserSignin=(username,password)=>{//登录
   return (dispatch,getState)=>{
     dispatch(requestSignin());
 
@@ -75,7 +75,7 @@ export default UserSignin=(username,password)=>{//登录
   }
 }
 
-export default UserSignup=(username,password,repassword,gender)=>{//注册，表单数据
+export const UserSignup=(username,password,repassword,gender)=>{//注册，表单数据
   return (dispatch,getState)=>{
     dispatch(requestSignup());//先表明正在请求
 
@@ -94,7 +94,7 @@ export default UserSignup=(username,password,repassword,gender)=>{//注册，表
   }
 }
 
-export default UserSignout=(user)=>{//通过user来设置登出
+export const UserSignout=(user)=>{//通过user来设置登出
   return (dispatch,getState) =>{
     dispatch(requestSignout());//先表明正在请求    
     return fetch(`/api/signout/`)

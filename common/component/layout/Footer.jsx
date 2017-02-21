@@ -4,7 +4,7 @@ import React, {Component} from 'react'
 /**
  * Footer组件，可定义些尾部信息
  */
-const Footer = ()=> {
+const Footer = ()=> (
   <footer>
     <p>
       This is a blog  to showcase universal rendering and routing with <strong>React</strong> and <strong>Express</strong>.
@@ -16,6 +16,6 @@ const Footer = ()=> {
       read the tutorial on <a href="https://scotch.io/tutorials/react-on-the-server-for-beginners-build-a-universal-react-and-node-app">Scotch.io</a>
     </p>
   </footer>
-}
+)
 
 export default Footer;

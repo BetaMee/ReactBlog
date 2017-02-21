@@ -1,33 +1,28 @@
-var path = require('path');
-var express = require('express');
-var session = require('express-session');
-var MongoStore = require('connect-mongo')(session);
-var flash = require('connect-flash');
-var config = require('config-lite');
-var NodeRoutes = require('./server/noderoutes');
-var pkg = require('./package');
-var winston = require('winston');
-var expressWinston = require('express-winston');
-
-
-
+import path from 'path';
+import express from 'express';
+import config from 'config-lite';
+import ApiRoutes from './api_routes';//服务端api路由
+import winston from 'winston';
+import expressWinston from 'express-winston';
+import session from 'express-session';
+import ConnectMongo from 'connect-mongo';
+var MongoStore =ConnectMongo(session);
+import getInitialData from './lib/helper';
 //react服务端渲染配置
+import React from 'react';
 import {Provider} from 'react-redux';
 import {renderToString} from 'react-dom/server';
-import {match, RoutingContext} from 'react-router';
-import AppRoutes from './common/AppRoutes';
-import renderFullPage from './server/lib/viewpage';
-import  configureStore from './common/store/store';
+import {match, RouterContext} from 'react-router';
+import AppRoutes from '../common/AppRoutes';//前端路由
+import renderFullPage from './lib/viewpage';
+import  configureStore from '../common/store/store';
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
+process.env.NODE_ENV = 'production';
 var app = express();
-
-// 设置模板目录
-app.set('views', path.join(__dirname, 'views'));
-// 设置模板引擎为 ejs
-app.set('view engine', 'ejs');
-
 // 设置静态文件目录
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'server/public')));
 // session 中间件
 app.use(session({
   name: config.session.key,// 设置 cookie 中保存 session id 的字段名称
@@ -37,80 +32,66 @@ app.use(session({
   },
   store: new MongoStore({// 将 session 存储到 mongodb
     url: config.mongodb// mongodb 地址
-  })
+  }),
+  resave: false, //是否每次都重新保存会话，建议false
+  saveUninitialized : false // 是否自动保存未初始化的会话，建议false
 }));
-// flash 中间价，用来显示通知
-app.use(flash());
+
 // 处理表单及文件上传的中间件
-app.use(require('express-formidable')({
-  uploadDir: path.join(__dirname, 'public/img'),// 上传文件目录
-  keepExtensions: true// 保留后缀
-}));
+// app.use(require('express-formidable')({
+//   uploadDir: path.join(__dirname, 'server/public/img'),// 上传文件目录
+//   keepExtensions: true// 保留后缀
+// }));
 
-// 设置模板全局常量
-app.locals.blog = {
-  title: pkg.name,
-  description: pkg.description
-};
-
-// 添加模板必需的三个变量
-app.use(function (req, res, next) {
-  res.locals.user = req.session.user;
-  res.locals.success = req.flash('success').toString();
-  res.locals.error = req.flash('error').toString();
-  next();
-});
 
 // 正常请求的日志
-app.use(expressWinston.logger({
-  transports: [
-    new (winston.transports.Console)({
-      json: true,
-      colorize: true
-    }),
-    new winston.transports.File({
-      filename: 'logs/success.log'
-    })
-  ]
-}));
+// app.use(expressWinston.logger({
+//   transports: [
+//     new (winston.transports.Console)({
+//       json: true,
+//       colorize: true
+//     }),
+//     new winston.transports.File({
+//       filename: './logs/success.log'
+//     })
+//   ]
+// }));
 
 
 // RESTful API路由
-routes(app);
+ApiRoutes(app);
 
 
+app.get('*',(req, res)=>{
 
-app.use((req, res)=>{
-
-  match( {AppRoutes, location:req.url}, (err, redirectLocation, renderProps)=>{
+  match( {routes:AppRoutes, location:req.url}, (err, redirectLocation, renderProps)=>{
     
-    console.log(err);
-    console.log(redirectLocation);
-    console.log(renderProps);
-
     if(err) {
       res.status(500).send(err.message);
     }else if(redirectLocation) {
-      res.redirect(302, redirectLocation.pathname+redirectLocation.search);      
+      console.log("redirection");
+      res.redirect(302,redirectLocation.pathname+redirectLocation.search);
     }else if(renderProps) {
-      const store = configureStore();
-      const state = store.getState();
+      //设置Material Design server rendering的配置
+      global.navigator = {
+        userAgent: req.headers['user-agent']
+      };
+      const muiTheme = getMuiTheme({userAgent: req.headers['user-agent']});
 
-      Promise.all([
-        store.dispatch(),
-        store.dispatch()
-      ])
-      .then(()=>{
-        const html = renderToString(
+      let initialState = getInitialData();
+      const store = configureStore(initialState);
+      let marked = renderToString(
+        <MuiThemeProvider muiTheme={muiTheme}>
           <Provider store={store}>
-            <RoutingContext {...renderProps}/>
+            <RouterContext {...renderProps}/>
           </Provider>
-        );
-        res.end(renderFullPage(html,store.getState()));
-      });
-    }else {
-      // let notFoundPage = renderToString(<NotFoundPage/>);
-      // res.status(404).end(notFoundPage);
+        </MuiThemeProvider>
+      );
+      const initHtml = renderFullPage(marked,store.getState());
+
+      res.status(200).end(initHtml);
+    }else{
+      res.status(404).end('404 not found');
     }
   });
 });
@@ -120,30 +101,26 @@ app.use((req, res)=>{
 
 
 // 错误请求的日志
-app.use(expressWinston.errorLogger({
-  transports: [
-    new winston.transports.Console({
-      json: true,
-      colorize: true
-    }),
-    new winston.transports.File({
-      filename: 'logs/error.log'
-    })
-  ]
-}));
-
-// error page
-app.use(function (err, req, res, next) {
-  res.render('error', {
-    error: err
-  });
-});
-
-if (module.parent) {
-  module.exports = app;
-} else {
-  // 监听端口，启动程序
+// app.use(expressWinston.errorLogger({
+//   transports: [
+//     new winston.transports.Console({
+//       json: true,
+//       colorize: true
+//     }),
+//     new winston.transports.File({
+//       filename: 'logs/error.log'
+//     })
+//   ]
+// }));
   app.listen(config.port, function () {
-    console.log(`${pkg.name} listening on port ${config.port}`);
+    console.log(`app listening on port ${config.port}`);
   });
-}
+
+// if (module.parent) {
+//   module.exports = app;
+// } else {
+//   // 监听端口，启动程序
+//   app.listen(config.port, function () {
+//     console.log(`app listening on port ${config.port}`);
+//   });
+// }

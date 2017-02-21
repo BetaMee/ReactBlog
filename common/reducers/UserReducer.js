@@ -6,22 +6,21 @@ import {
   FINISH_SIGNIN,
   FINISH_SIGNOUT,
   FINISH_SIGNUP
-} from '../action/user';
+} from '../action/UserAction.js';
 
 
-let initialState = {
-  isRequesting:false,
-  isLogin:false,
+const initialState = {
+  isLogin:false,//文章是否在获取中
   userInfo:{}
-}
+};//初始状态文章为空
 
-export default userReducer=(state=initialState,action)=>{
+const UserReducer=(state=initialState,action)=>{
     switch(action.type){
       case REQUEST_SIGNIN:
       case REQUEST_SIGNINOUT:
       case REQUEST_SIGNINUP:
         return Object.assign({},state,{
-          isRequesting:true
+          isLogin:true
         }); 
       case FINISH_SIGNUP://注册        
       case FINISH_SIGNIN://登录
@@ -34,5 +33,9 @@ export default userReducer=(state=initialState,action)=>{
           isLogin:false,
           userInfo:{}
         });
+      default:
+        return state;
     }
 }
+
+export default UserReducer;

@@ -4,6 +4,7 @@ function renderFullPage(html, initialState) {
     <html lang="en">
     <head>
       <meta charset="UTF-8">
+      <title>十二棵橡树</title>
     </head>
     <body>
       <div id="root">

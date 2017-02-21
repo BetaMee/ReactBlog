@@ -5,7 +5,7 @@ import
       REQUEST_DEL_POST_BY_ID,
       REQUEST_POSTS,
       RECEIVE_POSTS,
-    } from '../action/posts.js';
+    } from '../action/PostsAction.js';
 
 
 
@@ -15,7 +15,7 @@ const initialState = {
   items:[]
 };//初始状态文章为空
 
-export default postsReducer=(state = initialState, action)=>{
+const PostsReducer=(state = initialState, action)=>{
   switch(action.type) {
     case INVALIDATE_POSTS://当文章无效的时候
       return Object.assign({}, state, {
@@ -42,3 +42,6 @@ export default postsReducer=(state = initialState, action)=>{
       return state;
   }
 } 
+
+
+export default PostsReducer;
