@@ -8,15 +8,34 @@ var checkLogin = require('../middlewares/check').checkLogin;
 // GET /posts 所有用户或者特定用户的文章页
 //   eg: GET /posts?author=xxx
 router.get('/', function(req, res, next) {
-  var author = req.query.author;
+  // var author = req.query.author;
 
-  PostModel.getPosts(author)
-    .then(function (posts) {
-      res.render('posts', {
-        posts: posts
-      });
-    })
-    .catch(next);
+  // PostModel.getPosts(author)
+  //   .then(function (posts) {
+  //     res.render('posts', {
+  //       posts: posts
+  //     });
+  //   })
+  //   .catch(next);
+
+    res.json({
+              items:[
+                {
+                  postId:"1",
+                  author:"Betamee",
+                  postTime:"2017-2-20",
+                  pv:100,
+                  postContent:"ddd"
+                },
+                {
+                  postId:"3",
+                  author:"Betamee",
+                  postTime:"2017-2-20",
+                  pv:100,
+                  postContent:"hhh"
+                }
+        ]
+    });
 });
 
 // GET /posts/create 发表文章页

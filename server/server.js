@@ -1,3 +1,5 @@
+import 'babel-polyfill';
+
 import path from 'path';
 import express from 'express';
 import config from 'config-lite';
@@ -16,8 +18,8 @@ import {match, RouterContext} from 'react-router';
 import AppRoutes from '../common/AppRoutes';//前端路由
 import renderFullPage from './lib/viewpage';
 import  configureStore from '../common/store/store';
-import getMuiTheme from 'material-ui/styles/getMuiTheme';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+// import getMuiTheme from 'material-ui/styles/getMuiTheme';
+// import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 process.env.NODE_ENV = 'production';
 var app = express();
@@ -65,6 +67,10 @@ ApiRoutes(app);
 app.get('*',(req, res)=>{
 
   match( {routes:AppRoutes, location:req.url}, (err, redirectLocation, renderProps)=>{
+    console.log(err);
+    console.log(redirectLocation);
+    console.log(renderProps);
+    console.log("*****************************");
     
     if(err) {
       res.status(500).send(err.message);
@@ -73,22 +79,27 @@ app.get('*',(req, res)=>{
       res.redirect(302,redirectLocation.pathname+redirectLocation.search);
     }else if(renderProps) {
       //设置Material Design server rendering的配置
-      global.navigator = {
-        userAgent: req.headers['user-agent']
-      };
-      const muiTheme = getMuiTheme({userAgent: req.headers['user-agent']});
+      // global.navigator = {
+      //   userAgent: req.headers['user-agent']
+      // };
+      // const muiTheme = getMuiTheme({userAgent: req.headers['user-agent']});
 
-      let initialState = getInitialData();
-      const store = configureStore(initialState);
-      let marked = renderToString(
-        <MuiThemeProvider muiTheme={muiTheme}>
-          <Provider store={store}>
+      // let initialState = getInitialData();
+      // const store = configureStore(initialState);
+      // let marked = renderToString(
+      //   <MuiThemeProvider muiTheme={muiTheme}>
+      //     <Provider store={store}>
+      //       <RouterContext {...renderProps}/>
+      //     </Provider>
+      //   </MuiThemeProvider>
+      // );
+        let marked = renderToString(
+          // <Provider store={store}>
             <RouterContext {...renderProps}/>
-          </Provider>
-        </MuiThemeProvider>
+          // </Provider>
       );
-      const initHtml = renderFullPage(marked,store.getState());
-
+      // const initHtml = renderFullPage(marked,store.getState());
+      const initHtml = renderFullPage(marked,{});
       res.status(200).end(initHtml);
     }else{
       res.status(404).end('404 not found');

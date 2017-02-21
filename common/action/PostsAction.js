@@ -59,7 +59,7 @@ export const fetchPosts=()=> {
     dispatch(requestPosts());//先表明正在请求
     return fetch('/api/posts')
             .then(res=>res.json())
-            .then(json=>dispatch(receivePosts(json)))
+            .then(json=>dispatch(receivePosts(json.items)))
   }
 }
 

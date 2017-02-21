@@ -3,6 +3,7 @@ import React from 'react';
 import Posts from '../component/posts/Posts.jsx';
 import {connect} from 'react-redux';
 
+import {fetchPosts} from '../action/PostsAction.js';
 
 const mapStateToProps = (state, ownProps) => {
   return {
@@ -13,7 +14,7 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     dispatch1: () => {
-      dispatch(actionCreator)
+      dispatch(fetchPosts())
     }
   }
 }

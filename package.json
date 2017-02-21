@@ -23,6 +23,7 @@
   },
   "homepage": "https://github.com/BetaMee/ReactBlog#readme",
   "dependencies": {
+    "babel-polyfill": "^6.23.0",
     "config-lite": "^1.5.0",
     "connect-flash": "^0.1.1",
     "connect-mongo": "^1.3.2",
