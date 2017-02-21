@@ -1,8 +1,8 @@
 import React,{Component} from  'react';
 // import {Link} from 'react-router';
 
-import Header from './component/Header';
-import Footer from './component/Footer';
+import Header from './layout/Header.jsx';
+import Footer from './layout/Footer.jsx';
 
 
 class Layout extends Component {
