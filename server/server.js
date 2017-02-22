@@ -16,7 +16,7 @@ import {Provider} from 'react-redux';
 import {renderToString} from 'react-dom/server';
 import {match, RouterContext} from 'react-router';
 import AppRoutes from '../common/AppRoutes';//前端路由
-import renderFullPage from './lib/viewpage';
+import renderFullPage from './lib/view';
 import  configureStore from '../common/store/store';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';

@@ -7,10 +7,11 @@ import AppRoutes from '../common/AppRoutes.js';
 //状态管理
 import {Provider} from 'react-redux';
 import configureStore from '../common/store/store.js';
-
+//引入外部样式库
+// import './global-css/materialize.min.css';
+//MD UI库
 import injectTapEventPlugin from 'react-tap-event-plugin';
 injectTapEventPlugin();
-
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';//使用react context来补足server rendering 
 const muiTheme = getMuiTheme({userAgent: navigator.userAgent}); 
@@ -30,7 +31,5 @@ const Root = (props) => {
     </MuiThemeProvider>
   );
 }
-
-
 
 ReactDOM.render(<Root/>,document.getElementById('root'));

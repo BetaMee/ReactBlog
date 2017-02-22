@@ -6,6 +6,12 @@ import React,{Component} from  'react';
 import Header from './layout/Header.jsx';
 import Footer from './layout/Footer.jsx';
 
+const styles={
+  main:{
+    
+  }
+};
+
 
 class Layout extends Component {
   constructor(props){
@@ -13,7 +19,7 @@ class Layout extends Component {
   }
   render() {
     return (
-        <div>
+        <div style={styles.main}>
           <Header siteTitle="十二棵橡树"/>
             <div className="app-content">
               {this.props.children}

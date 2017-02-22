@@ -14,7 +14,8 @@ class Indexpage extends Component {
   render() {
     return(
       <div>
-        Hello Indexpage
+        Hello Indexpage<br/>
+        <Link to="/posts">Go for Posts</Link>
       </div>
     );
   }
