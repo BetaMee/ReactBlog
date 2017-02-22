@@ -21,7 +21,7 @@ class Layout extends Component {
     return (
         <div>
           <Header siteTitle="十二棵橡树"/>
-            <div clssName="main" style={styles.main}>
+            <div  style={styles.main}>
               {this.props.children}
             </div>
           <Footer/>
