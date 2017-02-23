@@ -3,6 +3,7 @@ import 'babel-polyfill';
 import path from 'path';
 import express from 'express';
 import config from 'config-lite';
+import webpack from 'webpack';
 import ApiRoutes from './api_routes';//服务端api路由
 import winston from 'winston';
 import expressWinston from 'express-winston';
@@ -21,10 +22,30 @@ import  configureStore from '../common/store/store';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
-process.env.NODE_ENV = 'production';
 var app = express();
 // 设置静态文件目录
-app.use(express.static(path.join(__dirname, 'public')));
+if(process.env.NODE_ENV === 'development') {
+	const webpackconfig = require('../webpack.config.dev');
+	const compiler = webpack(webpackconfig);
+	app.use(require('webpack-dev-middleware')(compiler, {
+		noInfo: true,
+		publicPath: webpackconfig.output.publicPath,
+		stats: {
+			assets: false,
+			colors: true,
+			version: false,
+			hash: false,
+			timings: false,
+			chunks: false,
+			chunkModules: false
+		}
+	}));
+	app.use(require('webpack-hot-middleware')(compiler));
+	app.use(express.static(path.resolve(__dirname,'../client')));//与webpack.dev中一致
+} else if(process.env.NODE_ENV === 'production') {
+	app.use(express.static(path.join(__dirname, 'public')));
+}
+
 // session 中间件
 app.use(session({
   name: config.session.key,// 设置 cookie 中保存 session id 的字段名称
@@ -67,10 +88,6 @@ ApiRoutes(app);
 app.get('*',(req, res)=>{
 
   match( {routes:AppRoutes, location:req.url}, (err, redirectLocation, renderProps)=>{
-    console.log(err);
-    console.log(redirectLocation);
-    console.log(renderProps);
-    console.log("*****************************");
     
     if(err) {
       res.status(500).send(err.message);
@@ -93,7 +110,7 @@ app.get('*',(req, res)=>{
           </Provider>
         </MuiThemeProvider>
       );
-      const initHtml = renderFullPage(marked,store.getState());
+      const initHtml = renderFullPage(marked,store.getState(),process.env.NODE_ENV);
       res.status(200).end(initHtml);
     }else{
       res.status(404).end('404 not found');

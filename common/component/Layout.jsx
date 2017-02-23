@@ -8,7 +8,7 @@ import Footer from './layout/Footer.jsx';
 
 const styles={
   main:{
-    
+    // marginTop:"64px"
   }
 };
 
@@ -19,9 +19,9 @@ class Layout extends Component {
   }
   render() {
     return (
-        <div style={styles.main}>
+        <div>
           <Header siteTitle="十二棵橡树"/>
-            <div className="app-content">
+            <div  style={styles.main}>
               {this.props.children}
             </div>
           <Footer/>

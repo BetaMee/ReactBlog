@@ -11,7 +11,8 @@ module.exports={
 
   output:{
     path: BUILD_PATH,
-    filename: 'client.bundle.js'
+    filename: 'client.bundle.js',
+    publicPath: '/'
   },
   module:{
     rules:[
@@ -19,7 +20,6 @@ module.exports={
         test:/\.(js|jsx)$/,
         exclude:/node_modules/,
         use: [
-          // 'react-hot-loader',
           'babel-loader',
         ]
       },
@@ -36,11 +36,23 @@ module.exports={
   },
 
   plugins:[
-        new webpack.DefinePlugin({
-            'process.env': {
-                NODE_ENV: JSON.stringify('production')
-            }
-        }),
+    new webpack.DefinePlugin({
+			'process.env': {
+				NODE_ENV: JSON.stringify('production'),
+				WEBPACK: true
+			}
+		}),
+		new webpack.optimize.UglifyJsPlugin({
+			compressor: {
+				warnings: false
+			}
+		}),
+		// new CopyWebpackPlugin([
+		// 	{
+		// 		from: path.resolve(__dirname, 'src', 'assets'),
+		// 		to: path.resolve(__dirname, 'dist', 'assets')
+		// 	}
+		// ]),
   ]
 }
 

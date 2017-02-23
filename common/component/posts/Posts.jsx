@@ -34,7 +34,6 @@ class Posts extends Component {
   
   render() {
     const {posts} =this.props;//将post内容取出来
-    console.log(posts);
     let postItemNode = posts.items.map(item=>{
       let ItemProps=Object.assign({},item,{
         postIntro: item.postContent.substr(0,100),//取前100字符作为介绍

@@ -12,10 +12,6 @@ const PostItem=({postTitle,postIntro,postTime,author,pv})=>{
         <CardTitle title={postTitle} subtitle={`发布时间：${postTime} 阅读数：${pv}`} />
         <CardText>
           {postIntro}
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-          Donec mattis pretium massa. Aliquam erat volutpat. Nulla facilisi.
-          Donec vulputate interdum sollicitudin. Nunc lacinia auctor quam sed pellentesque.
-          Aliquam dui mauris, mattis quis lacus id, pellentesque lobortis odio.
         </CardText>
         <CardActions>
           <FlatButton label="阅读" />
