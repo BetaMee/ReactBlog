@@ -20,8 +20,8 @@ const Footer = ()=> (
 
       <p>
         Built with <strong>❤</strong>︎ and <strong>code</strong> by <a href="http://oakmyblog.com" target="_blank">橡树上</a>.
-        Contribute on <a href="https://github.com/lmammino/judo-heroes">GitHub</a> or
-        read the tutorial on <a href="https://scotch.io/tutorials/react-on-the-server-for-beginners-build-a-universal-react-and-node-app">Github.io</a>
+        Contribute on <a href="https://github.com/lmammino/judo-heroes"></a> or
+        read the tutorial on <a href="https://scotch.io/tutorials/react-on-the-server-for-beginners-build-a-universal-react-and-node-app">Github</a>
       </p>
     </footer>
   </Paper>

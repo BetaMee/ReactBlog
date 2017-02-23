@@ -2,23 +2,25 @@ import { createStore,applyMiddleware,compose } from 'redux';
 import thunkMiddleware from 'redux-thunk';
 import createLogger from 'redux-logger';
 import rootReducer from '../reducers';
-import DevTools from '../container/DevTools.js' // 引入DevTools调试组件
-
 // 调用日志打印方法
 const loggerMiddleware = createLogger();
 // 创建一个中间件集合
 const middleware = [thunkMiddleware, loggerMiddleware]
 
-
-// 利用compose增强store，这个 store 与 applyMiddleware 和 redux-devtools 一起使用
-const finalCreateStore = compose(
-    applyMiddleware(...middleware),
-    DevTools.instrument(),
-)(createStore)
-
+//***************************** */
+const composeEnhancers = typeof window !== 'undefined' &&window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const configureStore=(preloadedState)=>{
-  const store = finalCreateStore(rootReducer,preloadedState);
+  const store = createStore(rootReducer, preloadedState, composeEnhancers(
+    applyMiddleware(...middleware)
+  ));
+  //开发环境下的store配置
+  if(process.env.NODE_ENV == 'development' && module.hot) {
+	  module.hot.accept('../reducers', () => { 
+		  const nextReducer = require('../reducers/index').default;
+      store.replaceReducer(nextReducer);
+	  });   
+  }
   return store;
 }
 export default configureStore;

@@ -16,12 +16,12 @@ function renderFullPage(html, initiaState,env) {
 						</head>
             
 						<body>
-							<div id='root'></div>
+						<div id="root"></div>
+              <script>
+                window.__INITIAL_STATE__ = ${JSON.stringify(initiaState)};
+              </script>
 							<script src='devClient.bundle.js'></script>
-						</body>
-            <script>
-              window.__INITIAL_STATE__ = ${JSON.stringify(initiaState)};
-            </script>
+						</body>     
 			</html>
     `;
   }else if(env='production'){

@@ -4,11 +4,8 @@ import UserReducer from './UserReducer';
 import PostsReducer from './PostsReducer';
 
 
-
-
-const rootReducer=combineReducers({
+export default combineReducers({
     user:UserReducer,
     posts:PostsReducer,
     routing: routerReducer
 });
-export default rootReducer;
