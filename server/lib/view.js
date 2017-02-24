@@ -32,6 +32,7 @@ function renderFullPage(html, initiaState,env) {
           <meta charset="UTF-8">
           <title>十二棵橡树</title>
           <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+          <link rel="stylesheet"  href="/assets/bundle.css">
           <style>
           body{
               margin:0px;
@@ -47,7 +48,7 @@ function renderFullPage(html, initiaState,env) {
           <script>
             window.__INITIAL_STATE__ = ${JSON.stringify(initiaState)};
           </script>
-          <script src="/js/client.bundle.js"></script>
+          <script src="/assets/client.bundle.js"></script>
         </body>
         </html>
     `;

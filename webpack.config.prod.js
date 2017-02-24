@@ -1,7 +1,7 @@
 var path = require('path');
 var webpack = require('webpack');
 var APP_PATH = path.resolve(__dirname, './client/App-Client.jsx');
-var BUILD_PATH = path.resolve(__dirname, './server/public/js');
+var BUILD_PATH = path.resolve(__dirname, './server/public/assets');
 var ExtractTextPlugin = require("extract-text-webpack-plugin");//将所有CSS文件打包
 const autoprefixer = require('autoprefixer');
 
@@ -13,7 +13,7 @@ module.exports={
   output:{
     path: BUILD_PATH,
     filename: 'client.bundle.js',
-    publicPath: '/'
+    publicPath: '/assets/'
   },
   module:{
     rules:[
@@ -26,7 +26,7 @@ module.exports={
       },
 
       {
-        test:/\.scss$/,
+        test:/\.css$/,
         use:ExtractTextPlugin.extract({
             fallback: 'style-loader',
             use: [
@@ -38,9 +38,9 @@ module.exports={
                     }
                   },
                   
-                  {
-                    loader:  'sass-loader',//处理sass和scss文件
-                  },
+                  // {
+                  //   loader:  'sass-loader',//处理sass和scss文件
+                  // },
             
                   {
                     loader:  'postcss-loader',
@@ -52,7 +52,32 @@ module.exports={
                   }
               ]
         })          
-      }
+      },
+      {//处理图片
+         test: /\.(png|jpg|gif|webp')$/,
+        //  include:path.resolve(__dirname,'/client/assets'),
+         use:[{
+           loader:'url-loader',
+           options:{
+             limit:10000,
+             //这个是输出的图片文件，跟output一致,生成的是bundleImg目录下的图片文件
+             name:`bundleImg/[hash:8].[name].[ext]`,
+           }
+         }]
+      },
+
+      {//处理文字
+         test: /\.(woff|ttf|svg|eot')$/,
+        //  include:path.resolve(__dirname,'/client/assets'),
+         use:[
+           {
+            loader:'url-loader',
+              options:{
+              limit:10000,  
+              name:'bundleFonts/[hash:8]-[name].[ext]'
+           }
+         }]
+      },
     ]
   },
 

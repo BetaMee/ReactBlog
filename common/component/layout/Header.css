@@ -1,0 +1,12 @@
+@font-face
+{
+  font-family: myFirstFont;
+  src: url('../../../client/assets/fonts/Roboto-Bold.ttf');
+}
+
+.name{
+  /*display:none;*/
+  /*background-color: red;*/
+  /*background-image: url('./assets/glasses.png')*/
+  font-family: myFirstFont
+}

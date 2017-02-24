@@ -1,0 +1,12 @@
+@font-face
+{
+  font-family: myFirstFont;
+  src: url(/assets/bundleFonts/e31fcf18-Roboto-Bold.ttf);
+}
+
+.Header__name-2RC4N{
+  /*display:none;*/
+  /*background-color: red;*/
+  /*background-image: url('./assets/glasses.png')*/
+  font-family: myFirstFont
+}

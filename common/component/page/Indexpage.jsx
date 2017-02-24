@@ -59,7 +59,7 @@ class Indexpage extends Component {
         zDepth={0}
       >
         <Paper style={styles.avatarContainer} zDepth={1} circle={true}>
-          <img style={styles.avatar} src="img/avatar.jpg"/>
+          <img style={styles.avatar} src="uploadImg/avatar.jpg"/>
         </Paper>
         <h1 style={styles.siteIntro}>Hello Welcome to My Blog Site</h1>
         <Link to="/posts">
