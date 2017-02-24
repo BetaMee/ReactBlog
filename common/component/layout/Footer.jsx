@@ -5,7 +5,13 @@ const styles = {
   footer:{
     backgroundColor:"#212121",
     width:"100%",
-    height:"500px"
+    height:"300px",
+
+    display:"flex",
+    alignItems:"center",
+    justifyContent: "center",
+
+    color:"#E3F2FD"
   }
 };
 
@@ -20,9 +26,8 @@ const Footer = ()=> (
       </p>
 
       <p>
-        Built with <strong>❤</strong>︎ and <strong>code</strong> by <a href="http://oakmyblog.com" target="_blank">橡树上</a>.
-        Contribute on <a href="https://github.com/lmammino/judo-heroes"></a> or
-        read the tutorial on <a href="https://scotch.io/tutorials/react-on-the-server-for-beginners-build-a-universal-react-and-node-app">Github</a>
+        Built with <strong>❤</strong>︎ and <strong>code</strong> by 橡树上.
+        Contribute on or read the tutorial on Github
       </p>
     </footer>
   </Paper>

@@ -2,17 +2,8 @@ import React, {Component} from 'react'
 import {Link} from 'react-router';
 import AppBar from 'material-ui/AppBar';
 import Paper from 'material-ui/Paper';
-
-const styles={
-  header:{
-    position:"fixed",//固定头部
-    top:"0px",
-    backgroundColor:"#E3F2FD"
-  },
-  titleStyle:{
-    color:"#01579B"
-  }
-};
+ 
+import styles from './Header.js';
 
 /**
  * Header组件，可定义些头部标题，头像

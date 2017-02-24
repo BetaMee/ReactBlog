@@ -2,46 +2,10 @@ import React,{Component} from 'react';
 import {Link} from 'react-router';
 import Paper from 'material-ui/Paper';
 import FlatButton from 'material-ui/FlatButton';
-import ActionAndroid from 'material-ui/svg-icons/action/android';
+import NotificationWifi from 'material-ui/svg-icons/notification/wifi';
+import styles from './Indexpage';
 
 
-const styles={
-  indexLayout:{
-    height:"500px",
-
-    display:"flex",
-    flexDirection:'column',
-    justifyContent: 'space-around',
-    alignItems:"center"
-  },
-  avatar:{
-    width:"100%",
-    borderRadius:"50%"
-  },
-
-  avatarContainer:{
-    height: 100,
-    width: 100,
-    margin: 20,
-    textAlign: 'center',
-    display: 'inline-block',
-  },
-  indexButton:{
-    color:"#3F51B5"
-  },
-  siteIntro:{
-    // width:"100%"
-  },
-
-
-
-  //第二块
-  indexIntro:{
-    height:"300px",
-    backgroundColor:"#E3F2FD"
-  }
-
-};
 
 class Indexpage extends Component {
   constructor(props){
@@ -61,25 +25,55 @@ class Indexpage extends Component {
         <Paper style={styles.avatarContainer} zDepth={1} circle={true}>
           <img style={styles.avatar} src="img/avatar.jpg"/>
         </Paper>
-        <h1 style={styles.siteIntro}>Hello Welcome to My Blog Site</h1>
+        <h1 style={styles.siteIntro}>Hello World</h1>
         <Link to="/posts">
           <FlatButton 
             label="See My Posts" 
             labelPosition="after"
             primary={true} 
-            icon={<ActionAndroid />}
+            icon={<NotificationWifi />}
             style={styles.indexButton}
           />
         </Link>
       </Paper>
-
+      {/*第二屏*/}
       <Paper 
         style={styles.indexIntro}
         zDepth={0}
       >
+        <div>这是一个开源的博客程序，使用react+redux+router</div>
       </Paper>
 
-      </div>
+      {/*第三屏*/}
+      <Paper 
+        style={styles.indexLink}
+        zDepth={0}
+      >
+        <div style={styles.indexPicContainer}>
+          <Paper 
+          style={styles.indexPic}
+          zDepth={0}
+          >
+            <img style={styles.Pic} src="/img/get-started.svg"/>
+          </Paper>
+
+          <Paper 
+          style={styles.indexPic}
+          zDepth={0}
+          >
+            <img style={styles.Pic} src="/img/components.svg"/>
+          </Paper>
+
+          <Paper 
+          style={styles.indexPic}
+          zDepth={0}
+          >
+            <img style={styles.Pic} src="/img/css-framework.svg"/>
+          </Paper>         
+        </div>
+      </Paper>
+
+    </div>
     );
   }
 }
