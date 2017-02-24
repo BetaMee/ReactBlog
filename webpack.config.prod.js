@@ -23,8 +23,7 @@ module.exports={
         use: [
           'babel-loader',
         ]
-<<<<<<< HEAD
-=======
+
       },
 
       {
@@ -54,7 +53,6 @@ module.exports={
                   }
               ]
         })          
->>>>>>> a40d69e38ba05d4de3bdf6d12cde9427642a1a9b
       }
     ]
   },
