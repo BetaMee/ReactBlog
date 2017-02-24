@@ -2,9 +2,6 @@ import React, {Component} from 'react'
 import {Link} from 'react-router';
 import AppBar from 'material-ui/AppBar';
 import Paper from 'material-ui/Paper';
-import withStyles from 'isomorphic-style-loader/lib/withStyles';
-import styles from './Header.scss'
-
 
 const styles={
   header:{
@@ -26,9 +23,10 @@ const Header = ({siteTitle})=> (
         title={siteTitle}
         iconClassNameRight="muidocs-icon-navigation-expand-more"
         zDepth={0}
-        className={styles.headerBase}
+        style={styles.header}
+        titleStyle={styles.titleStyle}
       />
     </header>
 );
 
-export default withStyles(Header);
+export default Header;
