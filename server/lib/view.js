@@ -32,6 +32,7 @@ function renderFullPage(html, initiaState,env) {
           <meta charset="UTF-8">
           <title>十二棵橡树</title>
           <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+          <link rel="stylesheet"  href="/assets/bundle.css">
           <style>
           body{
               margin:0px;
