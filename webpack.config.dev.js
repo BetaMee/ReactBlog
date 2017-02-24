@@ -1,6 +1,7 @@
-var path = require('path');
-var webpack = require('webpack');
-var APP_PATH = path.resolve(__dirname, './client/App-Client.jsx');
+const path = require('path');
+const webpack = require('webpack');
+const APP_PATH = path.resolve(__dirname, './client/App-Client.jsx');
+const autoprefixer = require('autoprefixer');
 
 
 module.exports={
@@ -29,11 +30,26 @@ module.exports={
       },
 
       {
-        test:/\.css$/,
+        test:/\.scss$/,
         exclude:/node_modules/,
         use:[
-          'style-loader',
-          'css-loader'
+          'isomorphic-style-loader',
+          {
+            loader:'css-loader',
+            options:{
+              modules:true,//开启CSS Module
+              localIdentName:`[name]__[local]-[hash:base64:5]`
+            }
+          },
+          'sass-loader',//处理sass和scss文件
+          {
+            loader:  'postcss-loader',
+            options:{
+                plugins:function(){//这里配置postcss的插件
+                  return [autoprefixer]
+                }
+            }
+          }
         ]
       }
     ]

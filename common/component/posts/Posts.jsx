@@ -18,7 +18,7 @@ const styles={
     flexDirection: 'row',
     justifyContent: 'center',
     width:'100%',
-    height:'80vh'
+    height:'1200px'
   }
 };
 

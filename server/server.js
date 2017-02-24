@@ -22,6 +22,7 @@ import  configureStore from '../common/store/store';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
+
 var app = express();
 // 设置静态文件目录
 if(process.env.NODE_ENV === 'development') {
@@ -42,6 +43,7 @@ if(process.env.NODE_ENV === 'development') {
 	}));
 	app.use(require('webpack-hot-middleware')(compiler));
 	app.use(express.static(path.resolve(__dirname,'../client')));//与webpack.dev中一致
+	app.use(express.static(path.join(__dirname, 'public')));  
 } else if(process.env.NODE_ENV === 'production') {
 	app.use(express.static(path.join(__dirname, 'public')));
 }
