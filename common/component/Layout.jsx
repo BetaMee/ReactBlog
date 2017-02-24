@@ -7,8 +7,12 @@ import Header from './layout/Header.jsx';
 import Footer from './layout/Footer.jsx';
 
 const styles={
+  root:{
+    // position:"relative",
+    width:"100%",
+  },
   main:{
-    // marginTop:"64px"
+    paddingTop:"64px"
   }
 };
 
@@ -19,7 +23,7 @@ class Layout extends Component {
   }
   render() {
     return (
-        <div>
+        <div style={styles.root}>
           <Header siteTitle="十二棵橡树"/>
             <div  style={styles.main}>
               {this.props.children}
