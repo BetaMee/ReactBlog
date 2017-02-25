@@ -20,7 +20,7 @@ function renderFullPage(html, initiaState,env) {
               <script>
                 window.__INITIAL_STATE__ = ${JSON.stringify(initiaState)};
               </script>
-							<script src='devClient.bundle.js'></script>
+							<script src='/devClient.bundle.js'></script>
 						</body>     
 			</html>
     `;
@@ -48,7 +48,7 @@ function renderFullPage(html, initiaState,env) {
           <script>
             window.__INITIAL_STATE__ = ${JSON.stringify(initiaState)};
           </script>
-          <script src="/js/client.bundle.js"></script>
+          <script src="/assets/client.bundle.js"></script>
         </body>
         </html>
     `;

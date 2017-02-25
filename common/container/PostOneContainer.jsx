@@ -1,6 +1,6 @@
 import React from 'react';
 
-import PostsList from '../component/posts/PostsList.jsx';
+import PostOne from '../component/posts/PostOne.jsx';
 import {connect} from 'react-redux';
 
 import {fetchPosts} from '../action/PostsAction.js';
@@ -19,4 +19,4 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   }
 }
 
-export default connect(mapStateToProps,mapDispatchToProps)(PostsList);
+export default connect(mapStateToProps,mapDispatchToProps)(PostOne);
