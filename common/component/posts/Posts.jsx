@@ -1,27 +1,8 @@
 import React,{Component} from  'react';
 import PostList from './PostList.jsx';//post列表
 import PostItem from './PostItem.jsx';//单独一篇post文章
-//布局
-import {GridList, GridTile} from 'material-ui/GridList';
 
-const styles={
-  postsLayout: {
-    width: "80%",
-    display: 'flex',
-    flexDirection:'column',
-    justifyContent: 'space-around',
-    height:'100%'
-  },
-
-  rootLayout:{//针对主body的一个布局
-    display:'flex',
-    flexDirection: 'row',
-    justifyContent: 'center',
-    width:'100%',
-    height:'1200px'
-  }
-};
-
+import CSSStyles from './Posts.css';
 
 
 class Posts extends Component {
@@ -42,8 +23,8 @@ class Posts extends Component {
       return <PostList  {...ItemProps} key={ItemProps.postId}/>
     });
     return (
-      <div style={styles.rootLayout}> 
-        <div style={styles.postsLayout}>
+      <div className={CSSStyles.root}> 
+        <div className={CSSStyles.posts}>
             {postItemNode}
         </div>
       </div>   

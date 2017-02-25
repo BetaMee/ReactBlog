@@ -65,7 +65,7 @@ module.exports={
       },
 
       {//处理字体
-         test: /\.(woff|ttf|svg|eot')$/,
+         test: /\.(woff|ttf|svg|eot|woff2)$/,
         //  include:path.resolve(__dirname,'/client/assets'),
          use:[
            {

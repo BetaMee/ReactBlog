@@ -41,10 +41,3 @@ const Root = (props) => {
 }
 
 ReactDOM.render(<Root/>,document.getElementById('root'));
-
-
-// if(process.env.NODE_ENV == 'development' && module.hot) {
-// 	module.hot.accept('../common/reducers', () => {
-// 		store.replaceReducer(require('../common/reducers').default);
-// 	});
-// }

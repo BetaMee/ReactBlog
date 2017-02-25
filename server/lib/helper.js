@@ -2,6 +2,12 @@ import PostModel from '../models/posts';
 
 const getInitialData=()=>{
   let initialData={
+    UI:{//UI组件状态
+      drawer:{},
+      indexpage:{},
+      postpage:{},
+      userpage:{},
+    },
     user:{
       isLogin:false,
       userInfo:{

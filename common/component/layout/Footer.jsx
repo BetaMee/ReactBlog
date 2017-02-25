@@ -1,7 +1,9 @@
-import React, {Component} from 'react'
+import React from 'react'
 import Paper from 'material-ui/Paper';
+import CSSStyles from './Footer.css';
 
-const styles = {
+
+const InlineStyles = {
   footer:{
     backgroundColor:"#212121",
     width:"100%",
@@ -19,8 +21,8 @@ const styles = {
  * Footer组件，可定义些尾部信息
  */
 const Footer = ()=> (
-  <Paper style={styles.footer} zDepth={1}>
-    <footer className="page-footer">
+  <Paper style={InlineStyles.footer} zDepth={1}>
+    <footer className={CSSStyles.footerFont}>
       <p>
         This is a blog  to showcase universal rendering and routing with <strong>React</strong> and <strong>Express</strong>.
       </p>

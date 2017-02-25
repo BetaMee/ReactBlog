@@ -1,9 +1,5 @@
 import React,{Component} from  'react';
-// import {Link} from 'react-router';
-
-
-
-import Header from './layout/Header.jsx';
+import HeaderContainer from '../container/HeaderContainer.jsx';
 import Footer from './layout/Footer.jsx';
 
 const styles={
@@ -24,7 +20,7 @@ class Layout extends Component {
   render() {
     return (
         <div style={styles.root}>
-          <Header siteTitle="十二棵橡树"/>
+          <HeaderContainer/>
             <div  style={styles.main}>
               {this.props.children}
             </div>

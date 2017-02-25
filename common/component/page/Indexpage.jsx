@@ -14,16 +14,53 @@ class Indexpage extends Component {
   componentDidMount () {
     console.log("Indexpage did mount");
   }
+
+  changeZDepth=(e,depth,target)=>{
+    const {
+      changeImgDepth,
+      changeLogo1Depth,
+      changeLogo2Depth,
+      changeLogo3Depth
+    } = this.props;
+    switch (target){
+      case 'avatar':
+        changeImgDepth(depth);
+      break;
+
+      case 'logo1':
+        changeLogo1Depth(depth);
+      break;
+
+      case 'logo2':
+        changeLogo2Depth(depth);
+      break;
+
+      case 'logo3':
+        changeLogo3Depth(depth);
+      break;
+
+      default:
+        break;
+    }
+    
+  }
   
   render() {
+    const {imgDepth,logo1Depth,logo2Depth,logo3Depth} = this.props.indexUI;
+
     return(
     <div>    
       <Paper 
         style={InlineStyles.indexLayout}
         zDepth={0}
       >
-        <Paper style={InlineStyles.avatarContainer} zDepth={1} circle={true}>
-          <img className={CSSStyles.avatar} src="uploadImg/avatar.jpg"/>
+        <Paper style={InlineStyles.avatarContainer} zDepth={imgDepth} circle={true}>
+          <img  className={CSSStyles.avatar} src="uploadImg/avatar.jpg" 
+                onMouseOver={e=>this.changeZDepth(e,3,'avatar')}
+                onMouseOut={e=>this.changeZDepth(e,1,'avatar')}
+                onTouchStart={e=>this.changeZDepth(e,3,'avatar')}
+                onTouchEnd={e=>this.changeZDepth(e,1,'avatar')}
+          />
         </Paper>
         <h1 className={CSSStyles.siteIntro}>Hello World</h1>
         <Link to="/posts">
@@ -52,23 +89,35 @@ class Indexpage extends Component {
         <div style={InlineStyles.indexPicContainer}>
           <Paper 
           style={InlineStyles.indexPic}
-          zDepth={0}
+          zDepth={logo1Depth}
           >
-            <img style={InlineStyles.Pic} src="/uploadImg/get-started.svg"/>
+            <img style={InlineStyles.Pic} 
+                  src="/uploadImg/get-started.svg" 
+                  onMouseOver={e=>this.changeZDepth(e,4,'logo1')}
+                  onMouseOut={e=>this.changeZDepth(e,0,'logo1')} 
+            />
           </Paper>
 
           <Paper 
           style={InlineStyles.indexPic}
-          zDepth={0}
+          zDepth={logo2Depth}
           >
-            <img style={InlineStyles.Pic} src="/uploadImg/components.svg"/>
+            <img style={InlineStyles.Pic} 
+                  src="/uploadImg/components.svg"
+                  onMouseOver={e=>this.changeZDepth(e,4,'logo2')}
+                  onMouseOut={e=>this.changeZDepth(e,0,'logo2')} 
+            />
           </Paper>
 
           <Paper 
           style={InlineStyles.indexPic}
-          zDepth={0}
+          zDepth={logo3Depth}
           >
-            <img style={InlineStyles.Pic} src="/uploadImg/css-framework.svg"/>
+            <img style={InlineStyles.Pic} 
+                 src="/uploadImg/css-framework.svg"
+                 onMouseOver={e=>this.changeZDepth(e,4,'logo3')}
+                 onMouseOut={e=>this.changeZDepth(e,0,'logo3')} 
+            />
           </Paper>         
         </div>
       </Paper>
