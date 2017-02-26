@@ -4,9 +4,8 @@ const getInitialData=()=>{
   let initialData={
     UI:{//UI组件状态
       drawer:{},
-      indexpage:{},
-      postpage:{},
-      userpage:{},
+      goNext:false,//是否禁止分页
+      goPrev:false,
     },
     user:{
       isLogin:false,
@@ -14,12 +13,18 @@ const getInitialData=()=>{
         name:"Betamee",
         gender:"M",
         bio:"Student",
-        sign:"I love coding"
+        sign:"I love coding",
+        avatar:"/uploadImg/avatar.jpg"
       }
     },
     posts:{
       isFetching:false,
       didInvalidate:false,
+      singlePost:{//当单独请求一篇文章的时候，初始的数据
+
+      },
+      postCount:6,//依赖于返回的数量
+      pageIndex:1,//post当前的指向页数
       items:[
         {
           postId:"1",

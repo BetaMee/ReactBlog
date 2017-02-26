@@ -1,60 +1,66 @@
 import React,{Component} from  'react';
 import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
-import FlatButton from 'material-ui/FlatButton';
+import FloatingActionButton from 'material-ui/FloatingActionButton';
+import Back from 'material-ui/svg-icons/maps/flight';
+import Divider from 'material-ui/Divider';
 
+
+import CSSStyles from './PostOne.css';
+
+const InlineStyles={
+  goTop:{
+    position:"fixed",
+    right:"5%",
+    bottom:"25%"
+  }
+}
 
 
 class PostOne extends Component{
   constructor(props){
     super(props);
   }
-
-  componentDidMount() {
-    console.log("post one");
+  shouldComponentUpdate (nextProps, nextState) {
+    
+  }
+  
+  
+  goTopWindow=()=>{
+    window.scroll(0,0);
   }
   
 
   render(){
-    console.log(this.props.routeParams);
-    
-    const posts = this.props;
-    console.log(posts);
-    
-    const routeParams=this.props.routeParams;//路由路径
-    const postId = routeParams.postId;
+    const {posts,user} = this.props;//取出redux中的state
+    const postId=this.props.routeParams.postId;//路由路径，匹配的是文章id
     let post={};
-    // for(const item in posts.items){//检索功能
-    //   if(item.postId===postId){//查看文章ID是否在里面
-    //     post=item;//将文章传给post变量
-    //     break;
-    //   }
-    // }
-    // if(post==={}){
-      
-    // }
-
+    for(const item of posts.items){//for..of 是属性值传递，for..in是属性传递
+      if(item.postId===postId){
+        post=item;
+        break;
+      }
+    }
     return (
-      <div>
+      <div className={CSSStyles.container}>
         <Card>
           <CardHeader
             title={post.author}
-            subtitle="Subtitle"
-            avatar="/uploadImg/avatar.jpg"
+            subtitle={user.userInfo.sign}
+            avatar={user.userInfo.avatar}
           />
-          <CardMedia
-            overlay={<CardTitle title="Overlay title" subtitle="Overlay subtitle" />}
-          >
-            <img src="/uploadImg/avatar.jpg" />
-          </CardMedia>
-          <CardTitle  subtitle="Card subtitle" />
+          <CardTitle title={post.postTitle} subtitle={`发布时间：${post.postTime} 阅读数：${post.pv}`}/>
+          <Divider />
           <CardText>
-           hello
+           {post.postContent}
           </CardText>
-          <CardActions>
-            <FlatButton label="Action1" />
-            <FlatButton label="Action2" />
-          </CardActions>
-        </Card>
+        </Card>    
+          <FloatingActionButton 
+            style={InlineStyles.goTop}
+            backgroundColor="#E8EAF6"
+            onClick={e=>this.goTopWindow()}
+          >
+                <Back />
+          </FloatingActionButton> 
       </div>
     );
   }

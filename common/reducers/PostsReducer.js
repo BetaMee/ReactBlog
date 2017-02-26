@@ -5,6 +5,8 @@ import
       REQUEST_DEL_POST_BY_ID,
       REQUEST_POSTS,
       RECEIVE_POSTS,
+
+      POSTS_CHANGE_PAGE
     } from '../action/PostsAction.js';
 
 
@@ -12,6 +14,11 @@ import
 const initialState = {
   isFetching:false,//文章是否在获取中
   didInvalidate:false,//是否无效
+  singlePost:{//当单独请求一篇文章的时候，初始的数据
+
+  },
+  postCount:6,//依赖于返回的数量
+  pageIndex:1,//post当前的指向页数
   items:[]
 };//初始状态文章为空
 
@@ -37,7 +44,11 @@ const PostsReducer=(state = initialState, action)=>{
         didInvalidate:false,
         items:action.posts
       }); 
-      
+    
+    case POSTS_CHANGE_PAGE://改变页数
+      return Object.assign({},state,{
+        pageIndex:action.nextPage
+      });
     default:
       return state;
   }

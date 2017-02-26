@@ -17,7 +17,11 @@ class Layout extends Component {
   constructor(props){
     super(props);
   }
+  
+
+  
   render() {
+    console.log("Layout");
     return (
         <div style={styles.root}>
           <HeaderContainer/>

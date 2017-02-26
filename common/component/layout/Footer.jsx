@@ -22,7 +22,7 @@ const InlineStyles = {
  */
 const Footer = ()=> (
   <Paper style={InlineStyles.footer} zDepth={1}>
-    <footer className={CSSStyles.footerFont}>
+    <footer className={CSSStyles.footer}>
       <p>
         This is a blog  to showcase universal rendering and routing with <strong>React</strong> and <strong>Express</strong>.
       </p>

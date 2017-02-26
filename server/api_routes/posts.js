@@ -17,7 +17,7 @@ router.get('/', function(req, res, next) {
   //     });
   //   })
   //   .catch(next);
-
+  console.log(req.query);
     res.json({
               items:[
                 {

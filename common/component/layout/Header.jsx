@@ -51,6 +51,7 @@ class Header extends Component{
   }
 
   render(){
+    console.log("Header");
     const {drawerStatus,changeDrawerStatus} = this.props;
     return (
       <header>

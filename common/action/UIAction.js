@@ -42,3 +42,13 @@ export const DrawerChangeStatus=()=>{
     type:CHANGE_DRAWER_STATUS
   }
 }
+
+
+//针对post页的分页是否禁止样式
+export const CHANGE_NEXT_STATUS = "CHANGE_NEXT_STATUS";
+
+export const ChangeNextStatus=()=>{
+    return {
+      type:CHANGE_NEXT_STATUS
+    }
+}

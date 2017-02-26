@@ -32,7 +32,7 @@ const Root = (props) => {
     <MuiThemeProvider muiTheme={muiTheme}>
       <Provider store={store}>
             {/* 渲染根路由 */}
-            <Router history={history}>
+            <Router history={history} onUpdate={() => window.scrollTo(0, 0)}>
                 {AppRoutes}
             </Router>
       </Provider>

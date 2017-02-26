@@ -5,13 +5,17 @@ import {
   INDEX_CHANGE_LOGO2_DEPTH,
   INDEX_CHANGE_LOGO3_DEPTH,
   //Drawer
-  CHANGE_DRAWER_STATUS
+  CHANGE_DRAWER_STATUS,
+  //post页分页禁止
+  CHANGE_PREV_STATUS,
 } from '../action/UIAction';
 
 const initialState = {//UI组件的状态
-  indexpage:{},
-  postpage:{},
-  userpage:{}
+  drawer:{
+    status:false
+  },
+  goNext:false,//是否禁止分页
+  goPrev:false,
 };
 
 const UIReducer=(state=initialState,action)=>{
@@ -51,6 +55,9 @@ const UIReducer=(state=initialState,action)=>{
           status:state.drawer.status==='undefined'?true:!state.drawer.status
         })
       });
+    //Post页的样式
+    case CHANGE_PREV_STATUS:
+      return !state.goPrev;
     default:
       return state;
   }
