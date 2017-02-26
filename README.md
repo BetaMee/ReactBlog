@@ -21,5 +21,6 @@ a blog system based on React+Node
 3. 开发部署工具，部署到github上，静态博客
 
 步骤：
+
 1. 先以NodeBlog为基础完善后台api设计.
 2. react+redux+react-router+webpack2.0+mongodb+express（isomorphic）
