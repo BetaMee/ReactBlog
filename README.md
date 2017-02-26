@@ -20,7 +20,9 @@ a blog system based on React+Node
 2. 设计自己的主题风格
 3. 开发部署工具，部署到github上，静态博客
 
-步骤：
+设计：
 
 1. 先以NodeBlog为基础完善后台api设计.
 2. react+redux+react-router+webpack2.0+mongodb+express（isomorphic）
+
+详细踩坑经验见issue
