@@ -22,4 +22,4 @@ a blog system based on React+Node
 
 步骤：
 1. 先以NodeBlog为基础完善后台api设计.
-2. 开发react的web页面，react-router作路由，前后端协作。
+2. react+redux+react-router+webpack2.0+mongodb+express（isomorphic）
