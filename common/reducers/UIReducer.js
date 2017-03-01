@@ -14,6 +14,7 @@ const initialState = {//UI组件的状态
   drawer:{
     status:false
   },
+  indexpage:{},
   goNext:false,//是否禁止分页
   goPrev:false,
 };

@@ -5,5 +5,5 @@ module.exports = {
     key: 'ReactBlog',
     maxAge: 2592000000
   },
-  mongodb: 'mongodb://localhost:27017/ReactBlog'
+  mongodb: 'mongodb://localhost:27017/test1'
 };

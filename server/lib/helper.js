@@ -4,6 +4,7 @@ const getInitialData=()=>{
   let initialData={
     UI:{//UI组件状态
       drawer:{},
+      indexpage:{},
       goNext:false,//是否禁止分页
       goPrev:false,
     },
