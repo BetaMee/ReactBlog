@@ -1,39 +1,49 @@
-var sha1 = require('sha1');
+var crypto = require('crypto');
 var express = require('express');
 var router = express.Router();
+var jwt = require('jsonwebtoken');
+
+
 
 var UserModel = require('../models/users');
 var checkNotLogin = require('../middlewares/check').checkNotLogin;
 
-// GET /signin 登录页
-router.get('/', checkNotLogin, function(req, res, next) {
-  res.render('signin');
-});
 
 // POST /signin 用户登录
 router.post('/', checkNotLogin, function(req, res, next) {
-  var name = req.fields.name;
-  var password = req.fields.password;
-
+  var name = req.body.name;
+  var password = req.body.password;
+  //以下为验证用户账号，从服务器中取出进行对比
   UserModel.getUserByName(name)
     .then(function (user) {
-      if (!user) {
-        req.flash('error', '用户不存在');
-        return res.redirect('back');
+      // console.log(user);
+      const secret = "express";
+      var HashPassword = crypto
+                   .createHmac('sha256', "express")
+                   .update(password)
+                   .digest('hex');
+      if(HashPassword===user.password){
+        console.log("密码匹配");
+        //创建Token，传送给客户端
+        var token = jwt.sign({ name: user.name }, 'shhhhh');
+        console.log(token);
+        res.json({
+          login:true,
+          token:token
+        });
+      }else{
+        res.json({
+          message:"用户或密码错误",
+          login:false
+        });
       }
-      // 检查密码是否匹配
-      if (sha1(password) !== user.password) {
-        req.flash('error', '用户名或密码错误');
-        return res.redirect('back');
-      }
-      req.flash('success', '登录成功');
-      // 用户信息写入 session
-      delete user.password;
-      req.session.user = user;
-      // 跳转到主页
-      res.redirect('/posts');
     })
-    .catch(next);
+    .catch(function(e){
+        res.json({
+          message:"账号不存在",
+          login:false
+        });
+    });
 });
 
 module.exports = router;

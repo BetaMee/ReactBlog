@@ -2,6 +2,9 @@ import PostModel from '../models/posts';
 
 const getInitialData=()=>{
   let initialData={
+    global:{
+      isLogin:false,      
+    },
     UI:{//UI组件状态
       drawer:{},
       indexpage:{},
@@ -9,7 +12,6 @@ const getInitialData=()=>{
       goPrev:false,
     },
     user:{
-      isLogin:false,
       userInfo:{
         name:"Betamee",
         gender:"M",

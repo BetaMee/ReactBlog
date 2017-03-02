@@ -5,9 +5,9 @@ import webpack from 'webpack';
 import ApiRoutes from './api_routes';//服务端api路由
 import winston from 'winston';
 import expressWinston from 'express-winston';
-import session from 'express-session';
-import ConnectMongo from 'connect-mongo';
-var MongoStore =ConnectMongo(session);
+import bodyParser from 'body-parser';
+// var session =require('express-session');
+// var MongoStore =require('connect-mongo')(session);
 import getInitialData from './lib/helper';
 //react服务端渲染配置
 import React from 'react';
@@ -46,19 +46,10 @@ if(process.env.NODE_ENV === 'development') {
 	app.use(express.static(path.join(__dirname, 'public')));
 }
 
-// session 中间件
-app.use(session({
-  name: config.session.key,// 设置 cookie 中保存 session id 的字段名称
-  secret: config.session.secret,// 通过设置 secret 来计算 hash 值并放在 cookie 中，使产生的 signedCookie 防篡改
-  cookie: {
-    maxAge: config.session.maxAge// 过期时间，过期后 cookie 中的 session id 自动删除
-  },
-  store: new MongoStore({// 将 session 存储到 mongodb
-    url: config.mongodb// mongodb 地址
-  }),
-  resave: false, //是否每次都重新保存会话，建议false
-  saveUninitialized : false // 是否自动保存未初始化的会话，建议false
-}));
+
+//处理fetch请求的json数据
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended:false}));
 
 // 处理表单及文件上传的中间件
 // app.use(require('express-formidable')({

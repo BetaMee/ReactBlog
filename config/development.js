@@ -1,7 +1,7 @@
 module.exports = {
   port: 3000,
   session: {
-    secret: 'myblog',
+    secret: 'ReactBlog',
     key: 'ReactBlog',
     maxAge: 2592000000
   },

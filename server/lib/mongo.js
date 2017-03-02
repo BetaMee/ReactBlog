@@ -26,9 +26,9 @@ const addCreateAt=(schema,options)=>{
 }
 
 //定义PostsSchema
-var PostsSchema = new Schema({
-  postId:{type:Schema.Types.ObjectId},
-  // author:{type:Schema.Types.ObjectId, ref:'users'},
+const PostsSchema = new Schema({
+  // postId:{type:Schema.Types.ObjectId},
+  author:{type:Schema.Types.ObjectId, ref:'users'},
   postTitle:{type:String},
   postTime:{type:Date,default:Date.now},
   postContent:{type:String,default:''},
@@ -37,22 +37,21 @@ var PostsSchema = new Schema({
 
 PostsSchema.plugin(addCreateAt);
 
-// export const p=PostsSchema;
+
+
+//定义UserShema
+const UserSchema = new Schema({
+  name:{type:String},
+  password:{type:String},
+  gender:{type:String},
+  bio:{type:String},
+  sign:{type:String},
+  avatar:{type:String},
+  posts:[{type:Schema.Types.ObjectId, ref:'posts'}]
+});
+
+
+
+export const UserModel = mongoose.model("users",UserSchema);
 
 export const PostsModel = mongoose.model("posts",PostsSchema);//PostsModel模型
-
-
-
-
-
-// //定义UserShema
-// export const UserSchema = new Schema({
-//   name:{type:String},
-//   gender:{type:String},
-//   bio:{type:String},
-//   sign:{type:String},
-//   avatar:{type:String},
-//   posts:[{type:Schema.Types.ObjectId, ref:'posts'}]
-// });
-
-// export const UserModel = new Mongoose.Model("users",UserSchema);
