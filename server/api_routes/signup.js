@@ -14,6 +14,11 @@ router.get('/', checkNotLogin, function(req, res, next) {
 
 // POST /signup 用户注册
 router.post('/', checkNotLogin, function(req, res, next) {
+  //先判断用户是否存在，如果不存在则创建，否则返回已创建标志
+  // if(){
+
+  // }
+  
   var name = req.body.name;
   var gender = req.body.gender;
   var bio = req.body.bio;
@@ -55,8 +60,6 @@ router.post('/', checkNotLogin, function(req, res, next) {
                    .update(password)
                    .digest('hex');
 
-
-
   // 待写入数据库的用户信息
   var user = {
     name: name,
@@ -71,7 +74,9 @@ router.post('/', checkNotLogin, function(req, res, next) {
     .then(function (result) {
       console.log("创建完用户");
       console.log(result);
-      res.send("ok");
+      //交由signin路由接管
+      //POST重定向必须是307
+      res.redirect(307,'/api/signin');
     })
     .catch(function (e) {
       console.log(e);

@@ -25,7 +25,7 @@ router.post('/', checkNotLogin, function(req, res, next) {
       if(HashPassword===user.password){
         console.log("密码匹配");
         //创建Token，传送给客户端
-        var token = jwt.sign({ name: user.name }, 'shhhhh');
+        var token = jwt.sign({ user: user._id }, 'shhhhh');
         console.log(token);
         res.json({
           login:true,
