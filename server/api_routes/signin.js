@@ -28,20 +28,20 @@ router.post('/', checkNotLogin, function(req, res, next) {
         var token = jwt.sign({ user: user._id }, 'shhhhh');
         console.log(token);
         res.json({
-          login:true,
+          success:true,
           token:token
         });
       }else{
         res.json({
-          message:"用户或密码错误",
-          login:false
+          success:false,
+          message:"用户或密码错误"          
         });
       }
     })
     .catch(function(e){
         res.json({
-          message:"账号不存在",
-          login:false
+          success:false,          
+          message:"账号不存在"
         });
     });
 });

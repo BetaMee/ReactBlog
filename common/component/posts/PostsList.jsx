@@ -2,6 +2,7 @@ import React,{Component} from  'react';
 import {Link} from 'react-router';
 import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
 import FlatButton from 'material-ui/FlatButton';
+import marked from 'marked';
 
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import Next from 'material-ui/svg-icons/image/navigate-next';
@@ -24,13 +25,14 @@ const InlineStyles={
 
 
 const Item=({postTitle,postIntro,postTime,author,pv,postId})=>{
+  console.log(marked(postIntro));
   return ( 
         <div className={CSSStlyes.items}>
           <Link to={`/posts/${postId}`} className={CSSStlyes.link}>
             <Card>
               <CardTitle title={postTitle} subtitle={`发布时间：${postTime} 阅读数：${pv}`} />
               <CardText>
-                {postIntro}
+                <div dangerouslySetInnerHTML={{__html:marked(postIntro)}} />
               </CardText>
               <CardActions>
                   <FlatButton label="阅读" />
@@ -47,43 +49,38 @@ class PostsList extends Component{
     super(props);
   }
 
-  goNextPage=(pageIndex,postCount)=>{
-     const {changePageIndex,getNextPosts} = this.props;
-    getNextPosts(6);
-    // const {changePageIndex,getNextPosts} = this.props;
-    // if((postCount/pageIndex)===6){//表明下一页没有数据了，需要获取,比如12条posts,到了第二页了
-    //   getNextPosts(postCount);//将当前页数传进去，后台会获取之后的六条数据
-    // }else{
-    //   changePageIndex(pageIndex+1);//只是单纯的改变页码，不刷新数据
-    // }
+  goNextPage=(pageIndex)=>{
+    const {getPosts} = this.props;
+    getPosts(6,6*pageIndex,pageIndex+1);//限制6条，跳过6*pageIndex条
   }
 
   goPrevPage=(pageIndex)=>{
-    const {changePageIndex} = this.props;
-    changePageIndex(pageIndex-1);
+    const {getPosts} = this.props;
+    getPosts(6,6*(pageIndex-2),pageIndex-1);//限制6条，跳过6*pageIndex条
   }
   
   render(){
-    const {items,pageIndex,postCount} =this.props.posts;//将post内容取出来
-    
+    const {items,pageIndex,postCounts} =this.props.posts;//将post内容取出来
     let postItemNode = items.map((item,index,array)=>{
       if(6*(pageIndex-1)<= index <6*pageIndex){//满足一定条件刷选相应的数据，分页功能
           let ItemProps=Object.assign({},item,{
             postIntro: item.postContent.substr(0,100),//取前100字符作为介绍
             postContent:'' 
           });
-          return <Item  {...ItemProps} key={ItemProps.postId}/>
+          return <Item  {...ItemProps} key={ItemProps._id}/>
       }  
     });
-
+    //分页数量
+    let pageNum = Math.ceil(postCounts/6);
+    
     return (
       <div className={CSSStlyes.container}>
         {postItemNode}
         <FloatingActionButton 
           style={InlineStyles.floatBefore}
           backgroundColor="#E8EAF6"
-          disabled={false}
-          onClick={e=>this.goNextPage(pageIndex,postCount)}
+          disabled={pageIndex===pageNum?true:false}
+          onClick={e=>this.goNextPage(pageIndex,postCounts)}
         >
               <Next />
         </FloatingActionButton>

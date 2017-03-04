@@ -32,18 +32,24 @@ router.get('/', function(req, res, next) {
 
   if(isNaN(skip) || isNaN(limit)){//防止无效查询字符串
     res.send({
-      status:false,
+      success:false,
       message:"error query string.should be nmuber"
     });
   }else{
       PostsEntity
-        .getPosts(counts,skip)
+        .getPosts(limit,skip)
         .then(result=>{
-          res.send(result);
+          res.send({
+            success:true,
+            posts:result
+          });
         })
-        .catch(e=>{
-          console.log(e);
-          res.send("error");
+        .catch(err=>{
+          console.log(err);
+          res.send({
+            success:false,
+            message:err.message
+          });
         });
   }
 });
@@ -68,22 +74,32 @@ router.post('/', checkLogin, function(req, res, next) {
     PostsEntity
       .create(post)
       .then(result=>{
-        console.log(result);
-        console.log("post create");
-        res.send("post ok");
+         PostsEntity
+            .getPostsCounts()
+            .then(counts=>{
+              res.send({
+                counts:counts,
+                success:true,
+                message:"post created"
+              });
+            });
       })
       .catch(err=>{
         console.log("err happened");
-        res.send("post create wrong");
+        res.send({
+          success:false,
+          message:err.message
+        });
       });
     
 
   }catch(err){
     console.log("decoded wrong");
+    res.send({
+          success:false,
+          message:err.message
+        });
   }
-
-
-
 });
 
 // GET /posts/:postId 单独一篇的文章
@@ -93,11 +109,17 @@ router.get('/:postId', function(req, res, next) {
   PostsEntity.getPostById(postId)
     .then(result=>{
       console.log(result);
-      res.send(result);
+      res.send({
+        success:true,
+        post:result
+      });
     })
-    .catch(e=>{
-      console.log(e);
-      res.send("error here");
+    .catch(err=>{
+      console.log(err);
+      res.send({
+        success:false,
+        message:err.message
+      });
     });
 });
 
@@ -116,7 +138,8 @@ router.post('/update', checkLogin, function(req, res, next) {
       .catch(err=>{
         console.log(err);
         res.send({
-          message:"error update"
+          success:true,
+          message:err.message
         });
       });
 });
@@ -128,15 +151,23 @@ router.post('/remove', checkLogin, function(req, res, next) {
   PostsEntity
         .removePostById(postId)
         .then(result=>{
-          console.log(result);
-          res.send("delete ok");
+            PostsEntity
+              .getPostsCounts()
+              .then(counts=>{
+                res.send({
+                  counts:counts,
+                  success:true,
+                  message:"post deleted"
+                });
+              });
         })
         .catch(err=>{
           console.log(err);
-          res.send("delete error");
+          res.send({
+            success:false,
+            message:err.message
+          });
         });
 });
-
-
 
 module.exports = router;

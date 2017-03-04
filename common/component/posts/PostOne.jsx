@@ -45,8 +45,8 @@ class PostOne extends Component{
         <Card>
           <CardHeader
             title={post.author}
-            subtitle={user.userInfo.sign}
-            avatar={user.userInfo.avatar}
+            subtitle={user.profile.sign}
+            avatar={user.profile.avatar}
           />
           <CardTitle title={post.postTitle} subtitle={`发布时间：${post.postTime} 阅读数：${post.pv}`}/>
           <Divider />

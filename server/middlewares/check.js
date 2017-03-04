@@ -4,16 +4,14 @@ module.exports = {
   checkLogin: function checkLogin(req, res, next) {
     //通过检查header头部的所携带的Token信息，这里的交互都是通过axios或者fetch来的
     console.log("checkLogin");
-    // console.log(req.body);
-    // console.log(req.get("Authorization"));
     var token=req.get("Authorization");
     jwt.verify(token,'shhhhh',(err,decoded)=>{
       if(err){
         res.send({
-          message:"error checkout"
+          success:false,
+          message:"user have not been login"
         });
       }else{
-        console.log(decoded);
         next();
       }
     });
@@ -27,6 +25,7 @@ module.exports = {
       next();
     }else{
       res.send({
+        success:false,
         message:"user has been login"
       });
     }

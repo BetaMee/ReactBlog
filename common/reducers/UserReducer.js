@@ -11,7 +11,7 @@ import {
 
 const initialState = {
   isLogin:false,//文章是否在获取中
-  userInfo:{}
+  profile:{}
 };//初始状态文章为空
 
 const UserReducer=(state=initialState,action)=>{

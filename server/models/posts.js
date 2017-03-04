@@ -16,7 +16,7 @@ const PostsEntity = {
 
   getPosts:(counts,skip)=>{
     return PostsModel
-            .find({},null,{skip:skip,limit:counts})        
+            .find({},null,{skip:skip,limit:counts})       
             .populate({
               path:"author",
               select:{//select指定要填充的字段
@@ -29,7 +29,10 @@ const PostsEntity = {
             })
             .exec()
   },
-
+  getPostsCounts:()=>{
+    return PostsModel
+            .count({})
+  },
   getPostById:(postId)=>{
     return PostsModel
             .findById(postId)

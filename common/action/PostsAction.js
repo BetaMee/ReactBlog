@@ -13,6 +13,8 @@ export const REQUEST_DEL_POST_BY_ID = 'REQUEST_DEL_POST_BY_ID';//请求删除文
 export const REQUEST_POSTS = 'REQUEST_POSTS';//请求文章
 export const RECEIVE_POSTS = 'RECEIVE_POSTS';//获得文章
 
+export const POSTS_CHANGE_PAGE =　"POSTS_CHANGE_PAGE";//改变文章页数
+
 
 /*
  * action 函数:
@@ -57,13 +59,29 @@ const ReceivePosts=(jsonData)=> {
 // }
 
 
-export const FetchPosts=(counts)=> {//获取专门数量的文章,counts表示前端拥有的数据量
+const ChangePostsPage=(nextPage)=>{
+  return {
+    type:POSTS_CHANGE_PAGE,
+    nextPage:nextPage
+  }
+}
+
+export const FetchPosts=(limit,skip,nextPage)=> {//获取专门数量的文章,counts表示前端拥有的数据量
   return (dispatch,getState)=>{
     dispatch(RequestPosts());//先表明正在请求
-    return request(`/api/posts?counts=${counts}`)
+    return request(`/api/posts?limit=${limit}&skip=${skip}`)
             .then(res=>res.data)
-            .then(data=>console.log(data))
-            // .then(json=>dispatch(receivePosts(json.items)))
+            .then(data=>{
+              if(!data.success){//获取资源出问题
+
+              }else{
+                dispatch(ChangePostsPage(nextPage));//改变页数
+                dispatch(ReceivePosts(data.posts));
+              }
+            })
+            .catch({//Fetch出问题
+
+            });
   }
 }
 
@@ -125,12 +143,3 @@ export const FetchPosts=(counts)=> {//获取专门数量的文章,counts表示�
 //   }
 // }
 
-
-export const POSTS_CHANGE_PAGE =　"POSTS_CHANGE_PAGE";//改变文章页数
-
-export const ChangePostsPage=(nextPage)=>{
-  return {
-    type:POSTS_CHANGE_PAGE,
-    nextPage:nextPage
-  }
-}

@@ -17,7 +17,7 @@ const initialState = {
   singlePost:{//当单独请求一篇文章的时候，初始的数据
 
   },
-  postCount:6,//依赖于返回的数量
+  postCounts:0,//依赖于返回的数量
   pageIndex:1,//post当前的指向页数
   items:[]
 };//初始状态文章为空

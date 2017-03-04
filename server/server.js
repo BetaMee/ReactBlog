@@ -92,17 +92,24 @@ app.get('*',(req, res)=>{
       };
       const muiTheme = getMuiTheme({userAgent: req.headers['user-agent']});
 
-      let initialState = getInitialData();
-      const store = configureStore(initialState);
-      let marked = renderToString(
-        <MuiThemeProvider muiTheme={muiTheme}>
-          <Provider store={store}>
-            <RouterContext {...renderProps}/>
-          </Provider>
-        </MuiThemeProvider>
-      );
-      const initHtml = renderFullPage(marked,store.getState(),process.env.NODE_ENV);
-      res.status(200).end(initHtml);
+      getInitialData()
+        .then(initialState=>{
+          console.log(initialState);
+          const store = configureStore(initialState);
+          let marked = renderToString(
+            <MuiThemeProvider muiTheme={muiTheme}>
+              <Provider store={store}>
+                <RouterContext {...renderProps}/>
+              </Provider>
+            </MuiThemeProvider>
+          );
+          const initHtml = renderFullPage(marked,store.getState(),process.env.NODE_ENV);
+          res.status(200).end(initHtml);
+        })
+        .catch(err=>{
+          console.log(err.message);
+          res.send(err.message);
+        });
     }else{
       res.status(404).end('404 not found');
     }
