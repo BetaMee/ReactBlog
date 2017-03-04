@@ -20,49 +20,51 @@ class PostOne extends Component{
   constructor(props){
     super(props);
   }
-  shouldComponentUpdate (nextProps, nextState) {
-    
-  }
-  
+
   
   goTopWindow=()=>{
     window.scroll(0,0);
   }
   
-
+  
   render(){
-    const {posts,user} = this.props;//取出redux中的state
-    const postId=this.props.routeParams.postId;//路由路径，匹配的是文章id
-    let post={};
-    for(const item of posts.items){//for..of 是属性值传递，for..in是属性传递
-      if(item.postId===postId){
-        post=item;
-        break;
+      const {posts,routeParams} =this.props;
+      const postId=routeParams.postId;
+      console.log(posts.items);
+      let post={};
+      if(posts.items.length===1){//只有一篇文章,适用于单篇请求
+        post=posts.items[0];
+      }else{
+        for(let item of posts.items){//适用于默认请求
+          if(item._id===postId){//将id进行搜索匹配
+            post=item;
+          }
+        }
       }
-    }
-    return (
-      <div className={CSSStyles.container}>
-        <Card>
-          <CardHeader
-            title={post.author}
-            subtitle={user.profile.sign}
-            avatar={user.profile.avatar}
-          />
-          <CardTitle title={post.postTitle} subtitle={`发布时间：${post.postTime} 阅读数：${post.pv}`}/>
-          <Divider />
-          <CardText>
-           {post.postContent}
-          </CardText>
-        </Card>    
-          <FloatingActionButton 
-            style={InlineStyles.goTop}
-            backgroundColor="#E8EAF6"
-            onClick={e=>this.goTopWindow()}
-          >
-                <Back />
-          </FloatingActionButton> 
-      </div>
-    );
+     
+      return (
+        <div className={CSSStyles.container}>
+          <Card>
+            <CardHeader
+              title={"hjhh"}
+              subtitle={post.author.sign}
+              avatar={post.author.avatar}
+            />
+            <CardTitle title={post.postTitle} subtitle={`发布时间：${post.postTime} 阅读数：${post.pv}`}/>
+            <Divider />
+            <CardText>
+            {post.postContent}
+            </CardText>
+          </Card>    
+            <FloatingActionButton 
+              style={InlineStyles.goTop}
+              backgroundColor="#E8EAF6"
+              onClick={e=>this.goTopWindow()}
+            >
+                  <Back />
+            </FloatingActionButton> 
+        </div>
+    ); 
   }
 }
 

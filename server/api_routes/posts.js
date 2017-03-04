@@ -39,9 +39,20 @@ router.get('/', function(req, res, next) {
       PostsEntity
         .getPosts(limit,skip)
         .then(result=>{
+          let posts=[];
+          for(let i=0;i<result.length;i++){
+            posts.push({
+              _id:result[i]._id,
+              author:result[i].author,
+              postTitle:result[i].postTitle,
+              postTime:result[i].postTime,
+              postContent:result[i].postContent,
+              pv:result[i].pv
+            });
+          }
           res.send({
             success:true,
-            posts:result
+            posts:posts
           });
         })
         .catch(err=>{
@@ -108,10 +119,19 @@ router.get('/:postId', function(req, res, next) {
 
   PostsEntity.getPostById(postId)
     .then(result=>{
-      console.log(result);
+
+       let post=Object.assign({},{
+          _id:result._id,
+          author:result.author,
+          postTitle:result.postTitle,
+          postTime:result.postTime,
+          postContent:result.postContent,
+          pv:result.pv
+       });
+             
       res.send({
         success:true,
-        post:result
+        post:post
       });
     })
     .catch(err=>{

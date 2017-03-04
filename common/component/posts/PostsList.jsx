@@ -24,19 +24,19 @@ const InlineStyles={
 }
 
 
-const Item=({postTitle,postIntro,postTime,author,pv,postId})=>{
-  console.log(marked(postIntro));
+const Item=({postTitle,postContent,postTime,author,pv,_id})=>{
+  // console.log(postContent);
   return ( 
         <div className={CSSStlyes.items}>
-          <Link to={`/posts/${postId}`} className={CSSStlyes.link}>
+          <Link to={`/posts/${_id}`} className={CSSStlyes.link}>
             <Card>
               <CardTitle title={postTitle} subtitle={`发布时间：${postTime} 阅读数：${pv}`} />
               <CardText>
-                <div dangerouslySetInnerHTML={{__html:marked(postIntro)}} />
+                <div dangerouslySetInnerHTML={{__html:marked(postContent)}} />
               </CardText>
               <CardActions>
                   <FlatButton label="阅读" />
-              </CardActions>
+              </CardActions> 
             </Card>
           </Link>
         </div>    
@@ -48,7 +48,11 @@ class PostsList extends Component{
   constructor(props){
     super(props);
   }
-
+  componentDidMount () {
+    const {getPosts} = this.props;
+    getPosts(6,0,1);
+  }
+  
   goNextPage=(pageIndex)=>{
     const {getPosts} = this.props;
     getPosts(6,6*pageIndex,pageIndex+1);//限制6条，跳过6*pageIndex条
@@ -62,15 +66,9 @@ class PostsList extends Component{
   render(){
     const {items,pageIndex,postCounts} =this.props.posts;//将post内容取出来
     let postItemNode = items.map((item,index,array)=>{
-      if(6*(pageIndex-1)<= index <6*pageIndex){//满足一定条件刷选相应的数据，分页功能
-          let ItemProps=Object.assign({},item,{
-            postIntro: item.postContent.substr(0,100),//取前100字符作为介绍
-            postContent:'' 
-          });
-          return <Item  {...ItemProps} key={ItemProps._id}/>
-      }  
+          return <Item  {...item} key={item._id}/>
     });
-    //分页数量
+    //计算分页数量
     let pageNum = Math.ceil(postCounts/6);
     
     return (

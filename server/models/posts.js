@@ -22,7 +22,6 @@ const PostsEntity = {
               select:{//select指定要填充的字段
                 _id:0,//0表示不填
                 name:1,
-                bio:1,
                 sign:1,
                 avatar:1
               }

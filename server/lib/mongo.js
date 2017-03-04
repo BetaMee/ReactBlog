@@ -24,8 +24,6 @@ const PostsSchema = new Schema({
 });
 
 PostsSchema.plugin(addCreateAt);
-PostsSchema.plugin(addCreateAt);
-
 
 
 

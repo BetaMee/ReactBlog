@@ -3,19 +3,18 @@ import React from 'react';
 import PostOne from '../component/posts/PostOne.jsx';
 import {connect} from 'react-redux';
 
-import {fetchPosts} from '../action/PostsAction.js';
+import {FetchPostById} from '../action/PostsAction.js';
 
 const mapStateToProps = (state, ownProps) => {
   return {
     posts: state.posts,//post的state
-    user:state.user//博客的博主信息
   }
 }
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    dispatch1: () => {
-      dispatch(fetchPosts())
+    fetchPostById: (postId) => {
+      dispatch(FetchPostById(postId));
     }
   }
 }

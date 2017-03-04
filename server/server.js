@@ -92,9 +92,9 @@ app.get('*',(req, res)=>{
       };
       const muiTheme = getMuiTheme({userAgent: req.headers['user-agent']});
 
-      getInitialData()
-        .then(initialState=>{
-          console.log(initialState);
+      // console.log(req.url);
+      getInitialData(req.url)
+        .then(initialState=>{        
           const store = configureStore(initialState);
           let marked = renderToString(
             <MuiThemeProvider muiTheme={muiTheme}>
