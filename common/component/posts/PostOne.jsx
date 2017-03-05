@@ -1,6 +1,7 @@
 import React,{Component} from  'react';
 import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
+import FlatButton from 'material-ui/FlatButton';
 import Back from 'material-ui/svg-icons/maps/flight';
 import Divider from 'material-ui/Divider';
 import marked from 'marked';
@@ -29,7 +30,7 @@ class PostOne extends Component{
   
   
   render(){
-      const {posts,routeParams} =this.props;
+      const {posts,routeParams,isLogin} =this.props;
       const postId=routeParams.postId;
       console.log(posts.items);
       let post={};
@@ -56,6 +57,12 @@ class PostOne extends Component{
             <CardText>
              <div dangerouslySetInnerHTML={{__html:marked(post.postContent)}} />
             </CardText>
+            {isLogin==true?(
+              <CardActions>
+                <FlatButton label="编辑" onTouchTap={this.handleExpand} />
+                <FlatButton label="删除" onTouchTap={this.handleReduce} />
+              </CardActions>
+            ):(<div></div>)}
           </Card>    
             <FloatingActionButton 
               style={InlineStyles.goTop}
@@ -71,6 +78,3 @@ class PostOne extends Component{
 
 
 export default PostOne;
-
-
-    

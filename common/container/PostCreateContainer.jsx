@@ -1,6 +1,6 @@
 import React from 'react';
 
-import PostOne from '../component/posts/PostOne.jsx';
+import PostCreate from '../component/posts/PostCreate.jsx';
 import {connect} from 'react-redux';
 
 import {FetchPostById} from '../action/PostsAction.js';
@@ -20,4 +20,4 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   }
 }
 
-export default connect(mapStateToProps,mapDispatchToProps)(PostOne);
+export default connect(mapStateToProps,mapDispatchToProps)(PostCreate);

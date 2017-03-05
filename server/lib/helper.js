@@ -11,6 +11,11 @@ const parseUrl=(url)=>{
     return 0;
   }
   
+  //测试/posts/create或者/posts/create/
+  if(/^\/posts\/create/.test(url) || /^\/posts\/create\//.test(url)){
+    return 0;
+  }
+
   let postRegExp=/^\/posts\//g;//构造/posts/:postId的查询正则
   
   if(postRegExp.test(url)){
@@ -83,7 +88,6 @@ const getInitialData=(url)=>{
 
 
   if(parsed===0 || parsed===2 || parsed===1){//返回默认
-    console.log("a");
     return new Promise((resolve,reject)=>{
       PostsEntity.getPosts(6,0)
           .then(result=>{
@@ -112,7 +116,6 @@ const getInitialData=(url)=>{
           });
     });
   }else{
-    console.log("b");
     return new Promise((resolve,reject)=>{
       PostsEntity.getPostById(parsed)
           .then(result=>{
