@@ -50,8 +50,18 @@ const getInitialData=(url)=>{
       UI:{//UI组件状态
         drawer:{},
         indexpage:{},
+        loginDialog:{
+          status:false,
+        }
+      },
+      form:{
+        loginName:'',
+        loginPw:''
       },
       user:{
+        isLoading:false,//文章是否在获取中
+        isLogin:false,//是否已登陆
+        errMsg:'',//出错的信息
         profile:{
           name:"Betamee",
           gender:"M",

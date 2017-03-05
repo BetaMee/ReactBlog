@@ -43,12 +43,11 @@ export const DrawerChangeStatus=()=>{
   }
 }
 
+//登陆dialog
+export const LOGIN_OPEN_DIALOG =　"LOGIN_OPEN_DIALOG";
 
-//针对post页的分页是否禁止样式
-export const CHANGE_NEXT_STATUS = "CHANGE_NEXT_STATUS";
-
-export const ChangeNextStatus=()=>{
-    return {
-      type:CHANGE_NEXT_STATUS
-    }
+export const LoginOpenDialog=()=>{
+  return {
+    type:LOGIN_OPEN_DIALOG
+  }
 }

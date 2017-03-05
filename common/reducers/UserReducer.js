@@ -10,7 +10,9 @@ import {
 
 
 const initialState = {
-  isLogin:false,//文章是否在获取中
+  isLoading:false,//文章是否在获取中
+  isLogin:false,//是否已登陆
+  errMsg:'',//出错的信息
   profile:{}
 };//初始状态文章为空
 
@@ -20,18 +22,24 @@ const UserReducer=(state=initialState,action)=>{
       case REQUEST_SIGNINOUT:
       case REQUEST_SIGNINUP:
         return Object.assign({},state,{
-          isLogin:true
+          isLoading:true
         }); 
       case FINISH_SIGNUP://注册        
       case FINISH_SIGNIN://登录
         return Object.assign({},state,{
+          isLoading:false,
           isLogin:true,
-          userInfo:action.userInfo
         });
       case FINISH_SIGNOUT:
         return Object.assign({},state,{
+          isLoading:false,          
           isLogin:false,
-          userInfo:{}
+        });
+      case ERROR_USER://出错后的状态
+        return Object.assign({},state,{
+          isLoading:false,
+          isLogin:false,
+          errMsg:action.message
         });
       default:
         return state;

@@ -3,6 +3,7 @@ import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'mat
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import Back from 'material-ui/svg-icons/maps/flight';
 import Divider from 'material-ui/Divider';
+import marked from 'marked';
 
 
 import CSSStyles from './PostOne.css';
@@ -46,14 +47,14 @@ class PostOne extends Component{
         <div className={CSSStyles.container}>
           <Card>
             <CardHeader
-              title={"hjhh"}
+              title={post.author.name}
               subtitle={post.author.sign}
               avatar={post.author.avatar}
             />
             <CardTitle title={post.postTitle} subtitle={`发布时间：${post.postTime} 阅读数：${post.pv}`}/>
             <Divider />
             <CardText>
-            {post.postContent}
+             <div dangerouslySetInnerHTML={{__html:marked(post.postContent)}} />
             </CardText>
           </Card>    
             <FloatingActionButton 

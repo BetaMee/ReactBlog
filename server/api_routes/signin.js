@@ -11,6 +11,7 @@ var checkNotLogin = require('../middlewares/check').checkNotLogin;
 
 // POST /signin 用户登录
 router.post('/', checkNotLogin, function(req, res, next) {
+  console.log(req.body);
   var name = req.body.name;
   var password = req.body.password;
   //以下为验证用户账号，从服务器中取出进行对比

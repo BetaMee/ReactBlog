@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import {Link} from 'react-router';
 import AppBar from 'material-ui/AppBar';
 import ReDrawer from './ReDrawer.jsx';//引入自定义drawer
+import Login from './Login.jsx';
 import {browserHistory} from 'react-router';
 
 
@@ -27,7 +28,7 @@ class Header extends Component{
   }
 
   onClickItem=(e,target)=>{
-    const {changeDrawerStatus} = this.props;    
+    const {changeDrawerStatus,changeDialogStatus} = this.props;    
     switch(target){
       case 'index':
         browserHistory.push('/');     
@@ -39,7 +40,7 @@ class Header extends Component{
         browserHistory.push('/catagories');
       break;
       case 'login':
-        browserHistory.push('/login');
+        changeDialogStatus();
       break;
       case 'about':
         browserHistory.push('/about');
@@ -51,8 +52,18 @@ class Header extends Component{
   }
 
   render(){
-    console.log("Header");
-    const {drawerStatus,changeDrawerStatus} = this.props;
+    const {
+      changeDrawerStatus,
+      changeDialogStatus,
+      getUserLogin,
+      changeLoginName,
+      changeLoginPw,
+
+      drawerStatus,
+      dialogStatus,
+      LoginState
+    } = this.props;
+
     return (
       <header>
         <AppBar
@@ -68,6 +79,14 @@ class Header extends Component{
           status={drawerStatus.status} 
           onClickItem={this.onClickItem} 
           changeStatus={changeDrawerStatus}
+        />
+        <Login
+          status={dialogStatus.status}
+          changeStatus={changeDialogStatus}
+          onClickLogin={getUserLogin}
+          loginState={LoginState}
+          changeLoginName={changeLoginName}
+          changeLoginPw={changeLoginPw}
         />
       </header>
     );

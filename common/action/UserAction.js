@@ -1,3 +1,5 @@
+import request from 'axios';
+
 export const REQUEST_SIGNIN = 'REQUEST_SIGNIN';
 export const REQUEST_SIGNINUP ='REQUEST_SIGNINUP';
 export const REQUEST_SIGNINOUT = 'REQUEST_SIGNINOUT';
@@ -7,20 +9,23 @@ export const FINISH_SIGNIN='FINISH_SIGNIN';
 export const FINISH_SIGNUP ='FINISH_SIGNUP';
 export const FINISH_SIGNOUT='FINISH_SIGNOUT';
 
-function requestSignin(){
+/**
+ * action辅助函数
+ */
+const RequestSignin=()=>{
   return {
     type:REQUEST_SIGNIN
   }
 }
 
-function requestSignup(){
+const RequestSignup=()=>{
   return {
     type:REQUEST_SIGNINUP
   }
 }
 
 
-function requestSignout(){
+const RequestSignout=()=>{
   return {
     type:REQUEST_SIGNINOUT
   }
@@ -28,50 +33,64 @@ function requestSignout(){
 
 
 //完成后的状态
-function finishSignin(userInfo){//登录
+const FinishSignin=()=>{//登录
   return {
     type: FINISH_SIGNIN,
-    userInfo    
   }
 }
 
-function finishSignup(userInfo){
+const FinishSignup=(loginStatus)=>{
   return {
     type: FINISH_SIGNUP,
-    userInfo
+    status:loginStatus
   }
 }
 
-function finishSignout(userInfo){
+const FinishSignout=(userInfo)=>{
   return {
     type: FINISH_SIGNOUT,
     userInfo  
   }
 }
 
-function errorUserHandle(){
+const ErrorUserHandle=(errMsg)=>{
   return {
-    type: ERROR_USER
+    type: ERROR_USER,
+    message:errMsg
   }
 }
 
 
 
-
-export const UserSignin=(username,password)=>{//登录
+/** 
+ * 
+*/
+export const GetUserLogin=(username,password)=>{//登录
   return (dispatch,getState)=>{
-    dispatch(requestSignin());
-
+    dispatch(RequestSignin());
     let option = {
-      method:'post',
-      headers:{
-        'Content-Type': 'application/x-www-form-urlencoded'
-      },
-      body:`username=${encodeURIComponent(username)}&password=${encodeURIComponent(password)}`
-    }
-    return fetch('/api/signin',option)
-            .then(userinfo=>dispatch(finishSignin(userinfo)))
-            .catch(()=>dispatch(errorUserHandle()));
+          method:'post',
+          url:"/api/signin",
+          headers:{
+            'Content-Type': 'application/x-www-form-urlencoded'
+          },
+          data:{
+            name:username,
+            password:password
+          }
+        }
+    return request(option)
+            .then(res=>{
+              let loginStatus = res.data;
+              if(!loginStatus.success){//看返回来的标志
+                dispatch(ErrorUserHandle(loginStatus.message));
+              }else{
+                dispatch(FinishSignin());//只要改变这个状态就好
+              }
+            })
+            .catch(e=>{
+              dispatch(ErrorUserHandle(e.message));
+            });
   }
 }
 

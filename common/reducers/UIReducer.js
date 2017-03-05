@@ -6,8 +6,9 @@ import {
   INDEX_CHANGE_LOGO3_DEPTH,
   //Drawer
   CHANGE_DRAWER_STATUS,
-  //post页分页禁止
-  CHANGE_PREV_STATUS,
+  //Dialog
+  LOGIN_OPEN_DIALOG
+  
 } from '../action/UIAction';
 
 const initialState = {//UI组件的状态
@@ -15,6 +16,9 @@ const initialState = {//UI组件的状态
     status:false
   },
   indexpage:{},
+  loginDialog:{
+    status:false,
+  }
 };
 
 const UIReducer=(state=initialState,action)=>{
@@ -54,9 +58,14 @@ const UIReducer=(state=initialState,action)=>{
           status:state.drawer.status==='undefined'?true:!state.drawer.status
         })
       });
-    //Post页的样式
-    case CHANGE_PREV_STATUS:
-      return !state.goPrev;
+    //登陆Dialog
+    case LOGIN_OPEN_DIALOG:
+      return Object.assign({},state,{
+        loginDialog:Object.assign({},state.loginDialog,{
+          //取反，表明取消状态,刚开始status是没有状态的，所以进行判断
+          status:state.loginDialog.status==='undefined'?true:!state.loginDialog.status
+        })
+      });
     default:
       return state;
   }
