@@ -1,5 +1,10 @@
 import request from 'axios';
 
+
+//引入外部action
+import {ChangeLoginName,ChangeLoginPw} from './FormAction.js';
+import {LoginOpenDialog} from './UIAction.js';
+
 export const REQUEST_SIGNIN = 'REQUEST_SIGNIN';
 export const REQUEST_SIGNINUP ='REQUEST_SIGNINUP';
 export const REQUEST_SIGNINOUT = 'REQUEST_SIGNINOUT';
@@ -60,32 +65,60 @@ const ErrorUserHandle=(errMsg)=>{
   }
 }
 
-
+/** 
+ * 设置localStorage
+*/
+const SetTokenStorage=(token)=>{
+  localStorage.setItem('authToken',token);
+}
 
 /** 
  * 
 */
+export const SendTokenToLogin=(token)=>{
+  return (dispatch,getState)=>{
+    dispatch(RequestSignin());
+    return request.post('/api/signin/verify',{token:token},{
+      headers:{
+        'Content-Type': 'application/json;charset=utf-8'
+      }
+    })
+    .then(res=>{
+      let resStatus=res.data;
+      if(!resStatus.success){
+        dispatch(ErrorUserHandle(resStatus.message));
+      }else{
+        dispatch(FinishSignin());
+      }
+    })
+    .catch(err=>{
+      dispatch(ErrorUserHandle(err.message));
+    });
+  }
+}
+
 export const GetUserLogin=(username,password)=>{//登录
   return (dispatch,getState)=>{
     dispatch(RequestSignin());
-    let option = {
-          method:'post',
-          url:"/api/signin",
-          headers:{
-            'Content-Type': 'application/x-www-form-urlencoded'
-          },
-          data:{
-            name:username,
-            password:password
-          }
-        }
-    return request(option)
+    var params={
+      name:username,
+      password:password
+    };
+    return request.post('/api/signin',params,{
+              headers:{
+                    'Content-Type': 'application/json;charset=utf-8'
+              }
+            })
             .then(res=>{
               let loginStatus = res.data;
               if(!loginStatus.success){//看返回来的标志
                 dispatch(ErrorUserHandle(loginStatus.message));
               }else{
                 dispatch(FinishSignin());//只要改变这个状态就好
+                dispatch(ChangeLoginName(''));//清空用户状态
+                dispatch(ChangeLoginPw(''));
+                dispatch(LoginOpenDialog());
+                SetTokenStorage(loginStatus.token);
               }
             })
             .catch(e=>{

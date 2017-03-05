@@ -58,10 +58,12 @@ class Header extends Component{
       getUserLogin,
       changeLoginName,
       changeLoginPw,
+      sendTokenToLogin,
 
       drawerStatus,
       dialogStatus,
-      LoginState
+      LoginState,
+      isLogin
     } = this.props;
 
     return (
@@ -87,6 +89,8 @@ class Header extends Component{
           loginState={LoginState}
           changeLoginName={changeLoginName}
           changeLoginPw={changeLoginPw}
+          isLogin={isLogin}
+          sendTokenToLogin={sendTokenToLogin}
         />
       </header>
     );

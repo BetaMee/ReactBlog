@@ -8,7 +8,12 @@ class Login extends Component{
   constructor(props){
     super(props);
   }
-  
+  componentDidMount(){
+    const {sendTokenToLogin} = this.props;
+    if(localStorage.getItem('authToken')){
+      sendTokenToLogin(localStorage.getItem('authToken'));
+    }
+  }
   handleNameChange=(name)=>{
     const {changeLoginName} = this.props;
     changeLoginName(name);
@@ -28,7 +33,9 @@ class Login extends Component{
     const {
       status,
       changeStatus,
-      loginState
+      loginState,
+
+      isLogin
     } =this.props;
 
     const actions = [
@@ -50,20 +57,26 @@ class Login extends Component{
           modal={true}
           open={status}
         >
-          <TextField
-            hintText="姓名"
-            value={loginState.loginName}
-            onChange={e=>this.handleNameChange(e.target.value.trim())}
-          />
-            <br />
-            <br />
-          <TextField
-            hintText="密码"
-            type="password"
-            value={loginState.loginPw}    
-            onChange={e=>this.handlePwChange(e.target.value.trim())}        
-          />
-            <br />
+          {
+           isLogin==false?(
+              <div>
+                  <TextField
+                    hintText="姓名"
+                    value={loginState.loginName}
+                    onChange={e=>this.handleNameChange(e.target.value.trim())}
+                  />
+                    <br />
+                    <br />
+                  <TextField
+                    hintText="密码"
+                    type="password"
+                    value={loginState.loginPw}    
+                    onChange={e=>this.handlePwChange(e.target.value.trim())}        
+                  />
+                    <br />
+              </div>
+           ):(<div>已登录</div>)
+          }
         </Dialog>
     );
   }

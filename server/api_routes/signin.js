@@ -47,4 +47,22 @@ router.post('/', checkNotLogin, function(req, res, next) {
     });
 });
 
+
+//对token进行验证，配合前端看是否登陆成功
+router.post('/verify',(req,res)=>{
+  var token=req.body.token;
+  jwt.verify(token,'shhhhh',(err,decoded)=>{
+      if(err){
+        res.send({
+          success:false,
+          message:"error token"
+        });
+      }else{
+        res.send({
+          success:true,
+          message:"token is ok"
+        });
+      }
+    });
+});
 module.exports = router;

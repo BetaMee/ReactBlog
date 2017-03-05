@@ -34,6 +34,7 @@ const UserReducer=(state=initialState,action)=>{
         return Object.assign({},state,{
           isLoading:false,          
           isLogin:false,
+          errMsg:''
         });
       case ERROR_USER://出错后的状态
         return Object.assign({},state,{
