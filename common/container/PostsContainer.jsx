@@ -3,7 +3,7 @@ import React from 'react';
 import PostsList from '../component/posts/PostsList.jsx';
 import {connect} from 'react-redux';
 
-import {FetchPosts,ChangePostsPage} from '../action/PostsAction.js';
+import {FetchPosts} from '../action/PostsAction.js';
 
 
 const mapStateToProps = (state, ownProps) => {
@@ -14,11 +14,8 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    getNextPosts:(counts)=>{//获取一定数量的文章，异步
-      dispatch(FetchPosts(counts));
-    },
-    changePageIndex:(nextPage)=>{//单纯的改变页数，此时已有数据，不需要获取
-      dispatch(ChangePostsPage(nextPage));
+    getPosts:(limit,skip,nextPage)=>{//获取一定数量的文章，异步
+      dispatch(FetchPosts(limit,skip,nextPage));
     }
   }
 }

@@ -55,7 +55,7 @@ class Indexpage extends Component {
         zDepth={0}
       >
         <Paper style={InlineStyles.avatarContainer} zDepth={imgDepth} circle={true}>
-          <img  className={CSSStyles.avatar} src="uploadImg/avatar.jpg" 
+          <img  className={CSSStyles.avatar} src="/uploadImg/avatar.jpg" 
                 onMouseOver={e=>this.changeZDepth(e,3,'avatar')}
                 onMouseOut={e=>this.changeZDepth(e,1,'avatar')}
                 onTouchStart={e=>this.changeZDepth(e,3,'avatar')}

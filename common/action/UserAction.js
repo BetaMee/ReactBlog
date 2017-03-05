@@ -1,3 +1,10 @@
+import request from 'axios';
+
+
+//引入外部action
+import {ChangeLoginName,ChangeLoginPw} from './FormAction.js';
+import {LoginOpenDialog} from './UIAction.js';
+
 export const REQUEST_SIGNIN = 'REQUEST_SIGNIN';
 export const REQUEST_SIGNINUP ='REQUEST_SIGNINUP';
 export const REQUEST_SIGNINOUT = 'REQUEST_SIGNINOUT';
@@ -7,20 +14,23 @@ export const FINISH_SIGNIN='FINISH_SIGNIN';
 export const FINISH_SIGNUP ='FINISH_SIGNUP';
 export const FINISH_SIGNOUT='FINISH_SIGNOUT';
 
-function requestSignin(){
+/**
+ * action辅助函数
+ */
+const RequestSignin=()=>{
   return {
     type:REQUEST_SIGNIN
   }
 }
 
-function requestSignup(){
+const RequestSignup=()=>{
   return {
     type:REQUEST_SIGNINUP
   }
 }
 
 
-function requestSignout(){
+const RequestSignout=()=>{
   return {
     type:REQUEST_SIGNINOUT
   }
@@ -28,50 +38,92 @@ function requestSignout(){
 
 
 //完成后的状态
-function finishSignin(userInfo){//登录
+const FinishSignin=()=>{//登录
   return {
     type: FINISH_SIGNIN,
-    userInfo    
   }
 }
 
-function finishSignup(userInfo){
+const FinishSignup=(loginStatus)=>{
   return {
     type: FINISH_SIGNUP,
-    userInfo
+    status:loginStatus
   }
 }
 
-function finishSignout(userInfo){
+const FinishSignout=(userInfo)=>{
   return {
     type: FINISH_SIGNOUT,
     userInfo  
   }
 }
 
-function errorUserHandle(){
+const ErrorUserHandle=(errMsg)=>{
   return {
-    type: ERROR_USER
+    type: ERROR_USER,
+    message:errMsg
   }
 }
 
+/** 
+ * 设置localStorage
+*/
+const SetTokenStorage=(token)=>{
+  localStorage.setItem('authToken',token);
+}
 
-
-
-export const UserSignin=(username,password)=>{//登录
+/** 
+ * 
+*/
+export const SendTokenToLogin=(token)=>{
   return (dispatch,getState)=>{
-    dispatch(requestSignin());
-
-    let option = {
-      method:'post',
+    dispatch(RequestSignin());
+    return request.post('/api/signin/verify',{token:token},{
       headers:{
-        'Content-Type': 'application/x-www-form-urlencoded'
-      },
-      body:`username=${encodeURIComponent(username)}&password=${encodeURIComponent(password)}`
-    }
-    return fetch('/api/signin',option)
-            .then(userinfo=>dispatch(finishSignin(userinfo)))
-            .catch(()=>dispatch(errorUserHandle()));
+        'Content-Type': 'application/json;charset=utf-8'
+      }
+    })
+    .then(res=>{
+      let resStatus=res.data;
+      if(!resStatus.success){
+        dispatch(ErrorUserHandle(resStatus.message));
+      }else{
+        dispatch(FinishSignin());
+      }
+    })
+    .catch(err=>{
+      dispatch(ErrorUserHandle(err.message));
+    });
+  }
+}
+
+export const GetUserLogin=(username,password)=>{//登录
+  return (dispatch,getState)=>{
+    dispatch(RequestSignin());
+    var params={
+      name:username,
+      password:password
+    };
+    return request.post('/api/signin',params,{
+              headers:{
+                    'Content-Type': 'application/json;charset=utf-8'
+              }
+            })
+            .then(res=>{
+              let loginStatus = res.data;
+              if(!loginStatus.success){//看返回来的标志
+                dispatch(ErrorUserHandle(loginStatus.message));
+              }else{
+                dispatch(FinishSignin());//只要改变这个状态就好
+                dispatch(ChangeLoginName(''));//清空用户状态
+                dispatch(ChangeLoginPw(''));
+                dispatch(LoginOpenDialog());
+                SetTokenStorage(loginStatus.token);
+              }
+            })
+            .catch(e=>{
+              dispatch(ErrorUserHandle(e.message));
+            });
   }
 }
 
