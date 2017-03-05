@@ -7,7 +7,7 @@ import Divider from 'material-ui/Divider';
 import marked from 'marked';
 
 
-// import CSSStyles from './PostOne.css';
+import CSSStyles from './PostOne.css';
 
 // const InlineStyles={
 //   goTop:{
