@@ -1,0 +1,41 @@
+.inputContainer{
+  padding: 0px 10px 10px 10px;
+}
+.input{
+  width:100%;
+  outline:none;
+  border:none;
+  height: 1.5em;
+  font-size:30px;
+}
+
+
+.textareaContainer{
+  width:100%;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+}
+
+.editor{
+  width:540px;
+  min-height: 600px;
+
+  padding: 10px;
+  margin-right:10px; 
+
+  background-color: #FAFAFA;  
+  outline:none;  
+  font-size: 2em;
+}
+
+.editorOutput{
+  width:600px;
+  padding: 10px;  
+  min-height: 540;
+  
+  outline:none;
+  font-size: 2em;
+  
+    
+}

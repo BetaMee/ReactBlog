@@ -3,19 +3,22 @@ import React from 'react';
 import PostCreate from '../component/posts/PostCreate.jsx';
 import {connect} from 'react-redux';
 
-import {FetchPostById} from '../action/PostsAction.js';
+import {GetTitleInput,GetContentInput} from '../action/EditorAction.js';
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    posts: state.posts,//post的state
-    isLogin:state.user.isLogin
+    editorState: state.editor,//post的state
+    isLogin:state.user.isLogin,
   }
 }
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    fetchPostById: (postId) => {
-      dispatch(FetchPostById(postId));
+    getTitleInput: (title) => {
+      dispatch(GetTitleInput(title));
+    },
+    getContentInput:(content)=>{
+      dispatch(GetContentInput(content));
     }
   }
 }

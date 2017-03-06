@@ -1,13 +1,11 @@
 import React,{Component} from  'react';
 import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
-import FloatingActionButton from 'material-ui/FloatingActionButton';
 import FlatButton from 'material-ui/FlatButton';
-import Back from 'material-ui/svg-icons/maps/flight';
 import Divider from 'material-ui/Divider';
 import marked from 'marked';
 
-
-import CSSStyles from './PostOne.css';
+import Editor from './components/Editor.jsx';
+// import CSSStyles from './PostOne.css';
 
 // const InlineStyles={
 //   goTop:{
@@ -23,18 +21,38 @@ class PostCreate extends Component{
     super(props);
   }
 
-  
-  goTopWindow=()=>{
-    window.scroll(0,0);
-  }
+
   
   
   render(){
-    
+     const {getTitleInput,getContentInput,editorState,isLogin} = this.props;
      
       return (
         <div>
-          Hello World
+          <Card>
+            <CardHeader
+              title={"hhh"}
+              subtitle={"hhhh"}
+              avatar={"jjkjkl"}
+            />
+            <Divider />
+            <CardText>
+              {isLogin==true?
+                (
+                <Editor
+                getTitleInput={getTitleInput}
+                getContentInput={getContentInput}
+                editorState={editorState}
+                />):
+                (
+                  <div>请先登陆</div>
+                )}
+            </CardText>
+              <CardActions>
+                <FlatButton label="确定" onTouchTap={this.handleExpand} />
+                <FlatButton label="重置" onTouchTap={this.handleReduce} />
+              </CardActions>
+          </Card>    
         </div>
     ); 
   }

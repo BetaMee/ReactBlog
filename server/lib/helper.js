@@ -59,6 +59,10 @@ const getInitialData=(url)=>{
           status:false,
         }
       },
+      editor:{
+        title:'',
+        content:''
+      },
       form:{
         loginName:'',
         loginPw:''
