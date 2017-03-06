@@ -10,7 +10,7 @@
 }
 
 
-.textareaContainer{
+.editorContainer{
   width:100%;
   height: 100%;
   display: flex;
@@ -18,7 +18,7 @@
 }
 
 .editor{
-  width:540px;
+  width:100%;
   min-height: 600px;
 
   padding: 10px;
@@ -26,16 +26,8 @@
 
   background-color: #FAFAFA;  
   outline:none;  
+  border: none;
   font-size: 2em;
-}
-
-.editorOutput{
-  width:600px;
-  padding: 10px;  
-  min-height: 540;
-  
-  outline:none;
-  font-size: 2em;
-  
-    
+  font-weight: 500;
+  font-family: Roboto, sans-serif
 }

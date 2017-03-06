@@ -16,10 +16,15 @@ export const RECEIVE_POSTS = 'RECEIVE_POSTS';//获得文章
 
 export const POSTS_CHANGE_PAGE =　"POSTS_CHANGE_PAGE";//改变文章页数
 
-
+export const SEND_POST_TO_SERVER = "SEND_POST_TO_SERVER";
+export const POSTS_CHANGE_COUNTS = "POSTS_CHANGE_COUNTS";
 /*
  * action 辅助函数
  */
+const GetTokenFromStorage=()=>{
+  return localStorage.getItem('authToken');
+}
+
 const RequestPosts=()=> {//只返回一个正在请求的状态
   return {
     type: REQUEST_POSTS,
@@ -33,12 +38,6 @@ const ReceivePosts=(posts)=> {
   }
 }
 
-const ReceivePostById=(post)=>{
-  return {
-    type:RECEIVE_POST_BYID,
-    post:post
-  }
-}
 
 const ChangePostsPage=(nextPage)=>{
   return {
@@ -47,6 +46,20 @@ const ChangePostsPage=(nextPage)=>{
   }
 }
 
+
+const GetPostSended=(message)=>{
+  return {
+    type:SEND_POST_TO_SERVER,
+    message:message
+  }
+}
+
+const ChangePostsCounts=(counts)=>{
+  return {
+    type:POSTS_CHANGE_COUNTS,
+    counts:counts
+  }
+}
 /**
  * 获取所有文章，后台接口是/api/posts?limit=<Nmuber>&skip=<Nmuber>
  * @param {*} limit 
@@ -75,22 +88,27 @@ export const FetchPosts=(limit,skip,nextPage)=> {//获取专门数量的文章,c
  * 
  * @param {*} postId 
  */
-// export const FetchPostById = (postId)=>{
-//   return (dispatch,getState)=>{
-//     dispatch(RequestPosts());//先表明正在请求
-//     return request(`/api/posts/${postId}`)
-//             .then(res=>res.data)
-//             .then(data=>{
-//               console.log(data);
-//               if(!data.success){
+export const SendPostToServer = (title,content)=>{
+  return (dispatch,getState)=>{
+    dispatch(RequestPosts());//先表明正在请求
+    return request.post(`/api/posts`,{title,content},{
+              headers:{
+                'Content-Type': 'application/json;charset=utf-8',
+                'Authorization':`${GetTokenFromStorage()}`
+              }
+            })
+            .then(res=>{
+              let resStatus=res.data;
+              if(!resStatus.success){
 
-//               }else{
-//                 dispatch(ReceivePostById(data.post));
-//               }
-//             })
-//             .catch(err=>{
+              }else{
+                dispatch(GetPostSended(resStatus.message));
+                dispatch(ChangePostsCounts(resStatus.counts));
+              }
+            })
+            .catch(err=>{
 
-//             });
-//   }
-// }
+            });
+  }
+}
 

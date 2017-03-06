@@ -4,6 +4,8 @@ import PostCreate from '../component/posts/PostCreate.jsx';
 import {connect} from 'react-redux';
 
 import {GetTitleInput,GetContentInput} from '../action/EditorAction.js';
+import {SendPostToServer} from '../action/PostsAction.js';
+
 
 const mapStateToProps = (state, ownProps) => {
   return {
@@ -19,6 +21,10 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     },
     getContentInput:(content)=>{
       dispatch(GetContentInput(content));
+    },
+
+    sendPostToServer:(title,content)=>{
+      dispatch(SendPostToServer(title,content));
     }
   }
 }

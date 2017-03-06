@@ -12,14 +12,14 @@ class Editor extends Component{
   }
 
   componentDidMount() {
-    const {getTitleInput,getContentInput,editorState} = this.props;
-    const realDom = findDOMNode(this.refs.textarea);//找到真实节点
-    realDom.addEventListener('DOMSubtreeModified',e=>this.handleTextAreaChange(e));//监听DOM文本节点，获取文本数据
+    // const {getTitleInput,getContentInput,editorState} = this.props;
+    // const realDom = findDOMNode(this.refs.textarea);//找到真实节点
+    // realDom.addEventListener('DOMSubtreeModified',e=>this.handleTextAreaChange(e));//监听DOM文本节点，获取文本数据
   }
   
   handleTextAreaChange=(e)=>{
     const {getContentInput} =this.props;
-    getContentInput(e.target.nodeValue);
+    getContentInput(e.target.value);
   }
   handleTitleChange=(e)=>{
     const {getTitleInput} = this.props;
@@ -33,14 +33,8 @@ class Editor extends Component{
         <div className={CSSStyles.inputContainer}>
           <input className={CSSStyles.input} value={editorState.title} onChange={e=>this.handleTitleChange(e)}/>
         </div>
-        <div className={CSSStyles.textareaContainer}>
-            <div className={CSSStyles.editor} contentEditable={true} ref="textarea">正文</div>    
-            <div 
-              className={CSSStyles.editorOutput} 
-              
-            >
-            {editorState.content}
-            </div>      
+        <div className={CSSStyles.editorContainer}>
+          <textarea className={CSSStyles.editor} value={editorState.content} onChange={e=>this.handleTextAreaChange(e)}/>     
         </div>
       </div>
     );

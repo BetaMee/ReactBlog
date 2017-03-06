@@ -8,7 +8,10 @@ import
       RECEIVE_POSTS,
       // RECEIVE_POST_BYID,
       
-      POSTS_CHANGE_PAGE
+      POSTS_CHANGE_PAGE,
+
+      POSTS_CHANGE_COUNTS,
+      SEND_POST_TO_SERVER
     } from '../action/PostsAction.js';
 
 
@@ -18,6 +21,7 @@ const initialState = {
   didInvalidate:false,//是否无效
   postCounts:0,//依赖于返回的数量
   pageIndex:1,//post当前的指向页数
+  message:"",
   items:[]
 };//初始状态文章为空
 
@@ -43,15 +47,19 @@ const PostsReducer=(state = initialState, action)=>{
         didInvalidate:false,
         items:action.posts
       }); 
-    // case RECEIVE_POST_BYID://获取单篇数据
-    //   return Object.assign({},state,{
-    //     isFetching:false,
-    //     didInvalidate:false,
-    //     singlePost:action.post
-    //   });
+    case SEND_POST_TO_SERVER://发送到服务器
+      return Object.assign({},state,{
+        isFetching:false,
+        didInvalidate:false,
+        message:action.message
+      });
     case POSTS_CHANGE_PAGE://改变页数
       return Object.assign({},state,{
         pageIndex:action.nextPage
+      });
+    case POSTS_CHANGE_COUNTS:
+      return Object.assign({},state,{
+        postCounts:action.counts
       });
     default:
       return state;

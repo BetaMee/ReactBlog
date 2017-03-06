@@ -21,7 +21,10 @@ class PostCreate extends Component{
     super(props);
   }
 
-
+  handlePost(e){
+    const {sendPostToServer,editorState} = this.props;
+    sendPostToServer(editorState.title,editorState.content);
+  }
   
   
   render(){
@@ -49,8 +52,8 @@ class PostCreate extends Component{
                 )}
             </CardText>
               <CardActions>
-                <FlatButton label="确定" onTouchTap={this.handleExpand} />
-                <FlatButton label="重置" onTouchTap={this.handleReduce} />
+                <FlatButton label="确定" onTouchTap={e=>this.handlePost(e)} />
+                <FlatButton label="重置"/>
               </CardActions>
           </Card>    
         </div>

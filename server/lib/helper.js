@@ -84,6 +84,7 @@ const getInitialData=(url)=>{
         didInvalidate:false,
         postCounts:0,//依赖于返回的数量
         pageIndex:1,//post当前的指向页数
+        message:"",
         items:[]
       }
     };
