@@ -26,3 +26,22 @@ a blog system based on React+Node
 2. react+redux+react-router+webpack2.0+mongodb+express（isomorphic）
 
 详细踩坑经验见issue
+
+
+node: v6.9.4
+
+yarn: v0.20.3
+
+# Usage:
+
+installation `yarn`
+
+run in devlopment: `yarn run dev`
+
+run in production:`yarn run build` && `yarn run serve`
+
+
+## What's included
+
+
+
