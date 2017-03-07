@@ -12,9 +12,7 @@ class Editor extends Component{
   }
 
   componentDidMount() {
-    // const {getTitleInput,getContentInput,editorState} = this.props;
-    // const realDom = findDOMNode(this.refs.textarea);//找到真实节点
-    // realDom.addEventListener('DOMSubtreeModified',e=>this.handleTextAreaChange(e));//监听DOM文本节点，获取文本数据
+  
   }
   
   handleTextAreaChange=(e)=>{

@@ -5,12 +5,14 @@ import {connect} from 'react-redux';
 
 import {GetTitleInput,GetContentInput} from '../action/EditorAction.js';
 import {SendPostToServer} from '../action/PostsAction.js';
-
+import {CreateOpenSnackbar} from '../action/UIAction.js';
 
 const mapStateToProps = (state, ownProps) => {
   return {
     editorState: state.editor,//post的state
     isLogin:state.user.isLogin,
+    postMsg:state.posts.message,
+    snkStatus:state.UI.createSnackbar
   }
 }
 
@@ -25,6 +27,10 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 
     sendPostToServer:(title,content)=>{
       dispatch(SendPostToServer(title,content));
+    },
+
+    changeSnkStatus:()=>{
+      dispatch(CreateOpenSnackbar());
     }
   }
 }

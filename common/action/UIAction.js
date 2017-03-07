@@ -51,3 +51,20 @@ export const LoginOpenDialog=()=>{
     type:LOGIN_OPEN_DIALOG
   }
 }
+
+//create页Snackbar 状态
+export const CREATE_OPEN_SNACKBAR = "CREATE_OPEN_SNACKBAR";
+
+export const CreateOpenSnackbar = ()=>{
+  return {
+    type:CREATE_OPEN_SNACKBAR
+  }
+}
+
+export const REMOVE_OPEN_SNACKKBAR = "REMOVE_OPEN_SNACKKBAR";
+
+export const RemoveOpenSnackbar = ()=>{
+  return {
+    type:REMOVE_OPEN_SNACKKBAR
+  }
+}

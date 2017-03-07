@@ -5,6 +5,7 @@ import FlatButton from 'material-ui/FlatButton';
 import Back from 'material-ui/svg-icons/maps/flight';
 import Divider from 'material-ui/Divider';
 import marked from 'marked';
+import Snackbar from 'material-ui/Snackbar';
 
 
 import CSSStyles from './PostOne.css';
@@ -28,9 +29,13 @@ class PostOne extends Component{
     window.scroll(0,0);
   }
   
+  handleRemovePost=(postId)=>{
+    const {removePostById} = this.props;
+    removePostById(postId);
+  }
   
   render(){
-      const {posts,routeParams,isLogin} =this.props;
+      const {posts,routeParams,isLogin,snkStatus,changeSnkStatus,postMsg} =this.props;
       const postId=routeParams.postId;
       console.log(posts.items);
       let post={};
@@ -46,6 +51,12 @@ class PostOne extends Component{
      
       return (
         <div className={CSSStyles.container}>
+          <Snackbar
+            open={snkStatus}
+            message={postMsg}
+            autoHideDuration={4000}
+            onRequestClose={e=>changeSnkStatus()}
+          />
           <Card>
             <CardHeader
               title={post.author.name}
@@ -60,7 +71,7 @@ class PostOne extends Component{
             {isLogin==true?(
               <CardActions>
                 <FlatButton label="编辑" onTouchTap={this.handleExpand} />
-                <FlatButton label="删除" onTouchTap={this.handleReduce} />
+                <FlatButton label="删除" onTouchTap={e=>this.handleRemovePost(post._id)} />
               </CardActions>
             ):(<div></div>)}
           </Card>    

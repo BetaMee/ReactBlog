@@ -40,7 +40,7 @@ const UserReducer=(state=initialState,action)=>{
         return Object.assign({},state,{
           isLoading:false,
           isLogin:false,
-          errMsg:action.message
+          errMsg:action.errMsg
         });
       default:
         return state;

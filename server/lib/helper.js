@@ -57,7 +57,9 @@ const getInitialData=(url)=>{
         indexpage:{},
         loginDialog:{
           status:false,
-        }
+        },
+        createSnackbar:false,
+        removeSnackbar:false
       },
       editor:{
         title:'',
@@ -71,6 +73,7 @@ const getInitialData=(url)=>{
         isLoading:false,//文章是否在获取中
         isLogin:false,//是否已登陆
         errMsg:'',//出错的信息
+        message:"",        
         profile:{
           name:"Betamee",
           gender:"M",

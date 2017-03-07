@@ -3,6 +3,8 @@ import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'mat
 import FlatButton from 'material-ui/FlatButton';
 import Divider from 'material-ui/Divider';
 import marked from 'marked';
+import Snackbar from 'material-ui/Snackbar';
+
 
 import Editor from './components/Editor.jsx';
 // import CSSStyles from './PostOne.css';
@@ -28,10 +30,23 @@ class PostCreate extends Component{
   
   
   render(){
-     const {getTitleInput,getContentInput,editorState,isLogin} = this.props;
+     const {
+        getTitleInput,
+        getContentInput,
+        editorState,isLogin,postMsg,snkStatus,
+        changeSnkStatus
+    } = this.props;
+      
+      console.log(snkStatus);
      
       return (
         <div>
+          <Snackbar
+            open={snkStatus}
+            message={postMsg}
+            autoHideDuration={4000}
+            onRequestClose={e=>changeSnkStatus()}
+          />
           <Card>
             <CardHeader
               title={"hhh"}

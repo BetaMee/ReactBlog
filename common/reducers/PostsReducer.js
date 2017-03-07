@@ -1,17 +1,13 @@
 import 
     { 
-      INVALIDATE_POSTS,
-      REQUEST_UPDATE_POST_BYID,
-      REQUEST_DEL_POST_BYID,
+      ERROR_POSTS_RENDER,
       REQUEST_POSTS,
-
       RECEIVE_POSTS,
-      // RECEIVE_POST_BYID,
-      
       POSTS_CHANGE_PAGE,
 
       POSTS_CHANGE_COUNTS,
-      SEND_POST_TO_SERVER
+      SEND_POST_TO_SERVER,
+      REMOVE_POST_FROM_SERVER
     } from '../action/PostsAction.js';
 
 
@@ -27,15 +23,13 @@ const initialState = {
 
 const PostsReducer=(state = initialState, action)=>{
   switch(action.type) {
-    case INVALIDATE_POSTS://当文章无效的时候
+    case ERROR_POSTS_RENDER://当出错的时候
       return Object.assign({}, state, {
-        didInvalidate:true
+        message:action.errMsg
       });
 
       //请求类
-    case REQUEST_UPDATE_POST_BYID://通过文章id更新文章数据   
     case REQUEST_POSTS://请求所有的文章
-    case REQUEST_DEL_POST_BYID://通过文章id删除文章数据
       return Object.assign({},state,{
         isFetching:true,
         didInvalidate:false,
@@ -48,6 +42,12 @@ const PostsReducer=(state = initialState, action)=>{
         items:action.posts
       }); 
     case SEND_POST_TO_SERVER://发送到服务器
+      return Object.assign({},state,{
+        isFetching:false,
+        didInvalidate:false,
+        message:action.message
+      });
+    case REMOVE_POST_FROM_SERVER:
       return Object.assign({},state,{
         isFetching:false,
         didInvalidate:false,

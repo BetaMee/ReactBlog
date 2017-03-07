@@ -1,11 +1,15 @@
 import { createStore,applyMiddleware,compose } from 'redux';
+import { routerMiddleware } from 'react-router-redux';//
+import {browserHistory} from 'react-router';
 import thunkMiddleware from 'redux-thunk';
 import createLogger from 'redux-logger';
 import rootReducer from '../reducers';
 // 调用日志打印方法
 const loggerMiddleware = createLogger();
+//react-router-redux
+const routermiddleware = routerMiddleware(browserHistory)
 // 创建一个中间件集合
-const middleware = [thunkMiddleware, loggerMiddleware]
+const middleware = [thunkMiddleware,routermiddleware, loggerMiddleware]
 
 //***************************** */
 const composeEnhancers = typeof window !== 'undefined' &&window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;

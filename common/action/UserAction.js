@@ -61,7 +61,7 @@ const FinishSignout=(userInfo)=>{
 const ErrorUserHandle=(errMsg)=>{
   return {
     type: ERROR_USER,
-    message:errMsg
+    errMsg:errMsg
   }
 }
 

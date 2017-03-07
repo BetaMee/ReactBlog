@@ -7,8 +7,11 @@ import {
   //Drawer
   CHANGE_DRAWER_STATUS,
   //Dialog
-  LOGIN_OPEN_DIALOG
-  
+  LOGIN_OPEN_DIALOG,
+  //create页Snackbar 状态
+  CREATE_OPEN_SNACKBAR,
+  REMOVE_OPEN_SNACKKBAR
+
 } from '../action/UIAction';
 
 const initialState = {//UI组件的状态
@@ -18,7 +21,9 @@ const initialState = {//UI组件的状态
   indexpage:{},
   loginDialog:{
     status:false,
-  }
+  },
+  createSnackbar:false,
+  removeSnackbar:false,
 };
 
 const UIReducer=(state=initialState,action)=>{
@@ -65,6 +70,15 @@ const UIReducer=(state=initialState,action)=>{
           //取反，表明取消状态,刚开始status是没有状态的，所以进行判断
           status:state.loginDialog.status==='undefined'?true:!state.loginDialog.status
         })
+      });
+    case CREATE_OPEN_SNACKBAR:
+      return Object.assign({},state,{
+        //取反，表明取消状态,刚开始status是没有状态的，所以进行判断
+        createSnackbar:!state.createSnackbar
+      });
+    case REMOVE_OPEN_SNACKKBAR:
+      return Object.assign({},state,{
+        removeSnackbar:!state.removeSnackbar
       });
     default:
       return state;
