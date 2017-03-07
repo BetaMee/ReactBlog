@@ -121,7 +121,9 @@ export const SendPostToServer = (title,content)=>{
               }else{
                 dispatch(GetPostSended(resStatus.message));
                 dispatch(ChangePostsCounts(resStatus.counts));
-                dispatch(CreateOpenSnackbar());//开启snaker                                               
+                dispatch(CreateOpenSnackbar());//开启snaker        
+                dispatch(push(`/posts`)); //通过react-router-redux进行切换                                    
+                                                       
               }
             })
             .catch(err=>{
