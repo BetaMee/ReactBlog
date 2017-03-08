@@ -7,7 +7,9 @@ import
 
       POSTS_CHANGE_COUNTS,
       SEND_POST_TO_SERVER,
-      REMOVE_POST_FROM_SERVER
+      SWITCH_EDIT_MODEL,
+      REMOVE_POST_FROM_SERVER,
+      UPDATE_POST_FROM_SERVER
     } from '../action/PostsAction.js';
 
 
@@ -15,6 +17,7 @@ import
 const initialState = {
   isFetching:false,//文章是否在获取中
   didInvalidate:false,//是否无效
+  isEdit:false,
   postCounts:0,//依赖于返回的数量
   pageIndex:1,//post当前的指向页数
   message:"",
@@ -52,6 +55,20 @@ const PostsReducer=(state = initialState, action)=>{
         isFetching:false,
         didInvalidate:false,
         message:action.message
+      });
+    case SWITCH_EDIT_MODEL:
+      return Object.assign({},state,{
+        isFetching:false,
+        didInvalidate:false,
+        isEdit:true,
+      });
+    case UPDATE_POST_FROM_SERVER:
+      return Object.assign({},state,{
+        isFetching:false,
+        didInvalidate:false,
+        isEdit:false,
+        message:action.message,
+        items:[].push(action.post)
       });
     case POSTS_CHANGE_PAGE://改变页数
       return Object.assign({},state,{

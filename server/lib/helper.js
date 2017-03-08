@@ -59,7 +59,8 @@ const getInitialData=(url)=>{
           status:false,
         },
         createSnackbar:false,
-        removeSnackbar:false
+        removeSnackbar:false,
+        updateSnackbar:false
       },
       editor:{
         title:'',
@@ -85,6 +86,7 @@ const getInitialData=(url)=>{
       posts:{
         isFetching:false,
         didInvalidate:false,
+        isEdit:false,
         postCounts:0,//依赖于返回的数量
         pageIndex:1,//post当前的指向页数
         message:"",

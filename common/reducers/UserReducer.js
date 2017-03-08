@@ -1,11 +1,9 @@
 import {
-  REQUEST_SIGNIN,
-  REQUEST_SIGNINOUT,
-  REQUEST_SIGNINUP,
+  REQUEST_SIGN,
+
   ERROR_USER,
   FINISH_SIGNIN,
-  FINISH_SIGNOUT,
-  FINISH_SIGNUP
+  FINISH_SIGNOUT
 } from '../action/UserAction.js';
 
 
@@ -18,13 +16,11 @@ const initialState = {
 
 const UserReducer=(state=initialState,action)=>{
     switch(action.type){
-      case REQUEST_SIGNIN:
-      case REQUEST_SIGNINOUT:
-      case REQUEST_SIGNINUP:
+      case REQUEST_SIGN:
         return Object.assign({},state,{
           isLoading:true
         }); 
-      case FINISH_SIGNUP://注册        
+    
       case FINISH_SIGNIN://登录
         return Object.assign({},state,{
           isLoading:false,

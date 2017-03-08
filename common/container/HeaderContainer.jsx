@@ -4,7 +4,7 @@ import Header from '../component/layout/Header.jsx';
 import {connect} from 'react-redux';
 
 import {DrawerChangeStatus,LoginOpenDialog} from '../action/UIAction.js';
-import {GetUserLogin,SendTokenToLogin} from '../action/UserAction.js';
+import {GetUserLogin,GetUserLogOut,SendTokenToLogin} from '../action/UserAction.js';
 import {ChangeLoginName,ChangeLoginPw} from '../action/FormAction.js';
 
 
@@ -30,6 +30,10 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 
     getUserLogin:(username,password)=>{
       dispatch(GetUserLogin(username,password));
+    },
+
+    getUserLogOut:()=>{
+      dispatch(GetUserLogOut());
     },
 
     changeLoginName:(name)=>{

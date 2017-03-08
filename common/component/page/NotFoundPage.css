@@ -1,0 +1,23 @@
+@font-face {
+  font-family: 'Oxygen';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Oxygen'), local('Oxygen-Regular'), url('../../../client/assets/404.woff2') format('woff2');
+}
+
+
+.main{
+  height: 500px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background-color: #FFF3E0
+
+}
+
+.body{
+  font-family: Oxygen;  
+  font-size: 2em;
+}
+

@@ -58,9 +58,11 @@ const styles={
   },
   indexPic:{
     width:"100%",  
+    margin:"10px"
   },
   Pic:{
-    width:"100%"
+    width:"100%",
+    height:"100%"
   }
 
 };

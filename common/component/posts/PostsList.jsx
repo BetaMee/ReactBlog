@@ -1,6 +1,6 @@
 import React,{Component} from  'react';
 import {Link} from 'react-router';
-import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
+import {Card, CardActions, CardHeader, CardTitle, CardText} from 'material-ui/Card';
 import FlatButton from 'material-ui/FlatButton';
 import marked from 'marked';
 
@@ -25,7 +25,6 @@ const InlineStyles={
 
 
 const Item=({postTitle,postContent,postTime,author,pv,_id})=>{
-  // console.log(postContent);
   return ( 
         <div className={CSSStlyes.items}>
           <Link to={`/posts/${_id}`} className={CSSStlyes.link}>

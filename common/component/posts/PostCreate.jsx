@@ -1,21 +1,11 @@
 import React,{Component} from  'react';
-import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
-import FlatButton from 'material-ui/FlatButton';
+import {Card, CardActions, CardHeader, CardTitle, CardText} from 'material-ui/Card';
 import Divider from 'material-ui/Divider';
-import marked from 'marked';
+import FlatButton from 'material-ui/FlatButton';
 import Snackbar from 'material-ui/Snackbar';
 
 
 import Editor from './components/Editor.jsx';
-// import CSSStyles from './PostOne.css';
-
-// const InlineStyles={
-//   goTop:{
-//     position:"fixed",
-//     right:"5%",
-//     bottom:"25%"
-//   }
-// }
 
 
 class PostCreate extends Component{
@@ -33,12 +23,10 @@ class PostCreate extends Component{
      const {
         getTitleInput,
         getContentInput,
-        editorState,isLogin,postMsg,snkStatus,
+        editorState,isLogin,postMsg,snkStatus,user,
         changeSnkStatus
     } = this.props;
-      
-      console.log(snkStatus);
-     
+ 
       return (
         <div>
           <Snackbar
@@ -49,9 +37,9 @@ class PostCreate extends Component{
           />
           <Card>
             <CardHeader
-              title={"hhh"}
-              subtitle={"hhhh"}
-              avatar={"jjkjkl"}
+              title={user.name}
+              subtitle={user.sign}
+              avatar={user.avatar}
             />
             <Divider />
             <CardText>
@@ -68,7 +56,6 @@ class PostCreate extends Component{
             </CardText>
               <CardActions>
                 <FlatButton label="确定" onTouchTap={e=>this.handlePost(e)} />
-                <FlatButton label="重置"/>
               </CardActions>
           </Card>    
         </div>

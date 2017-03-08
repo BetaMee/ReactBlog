@@ -1,6 +1,6 @@
 import request from 'axios';
 
-import {CreateOpenSnackbar,RemoveOpenSnackbar} from '../action/UIAction.js';
+import {CreateOpenSnackbar,RemoveOpenSnackbar,UpdateOpenSnackbar} from '../action/UIAction.js';
 import { push } from 'react-router-redux';//路由切换
 
 /*
@@ -17,6 +17,8 @@ export const POSTS_CHANGE_PAGE =　"POSTS_CHANGE_PAGE";//改变文章页数
 
 export const SEND_POST_TO_SERVER = "SEND_POST_TO_SERVER";
 export const REMOVE_POST_FROM_SERVER = "REMOVE_POST_FROM_SERVER";
+export const UPDATE_POST_FROM_SERVER = "UPDATE_POST_FROM_SERVER";
+export const SWITCH_EDIT_MODEL = "SWITCH_EDIT_MODEL";
 export const POSTS_CHANGE_COUNTS = "POSTS_CHANGE_COUNTS";
 /*
  * action 辅助函数
@@ -58,6 +60,14 @@ const GetPostRemoved=(message)=>{
   return {
     type:REMOVE_POST_FROM_SERVER,
     message:message
+  }
+}
+
+const GetPostUpdate = (message,post)=>{
+  return {
+    type:UPDATE_POST_FROM_SERVER,
+    message:message,
+    post:post
   }
 }
 const ChangePostsCounts=(counts)=>{//改变文章的数量
@@ -161,3 +171,35 @@ export const RemovePostById=(postId)=>{
     })
   }
 }
+
+export const SwitchEditMode=()=>{
+  return {
+    type:SWITCH_EDIT_MODEL
+  }
+}
+export const UpdatePostById=(postId,title,content)=>{
+  return (dispatch,getState)=>{
+    dispatch(RequestPosts());//先表明正在请求
+    return request.post('/api/posts/update',{postId,title,content},{
+      headers:{
+        'Content-Type': 'application/json;charset=utf-8',
+        'Authorization':`${GetTokenFromStorage()}`
+      }
+    })
+    .then(res=>{
+      let resStatus=res.data;
+      if(resStatus.success){
+        dispatch(ErrorHandle("更新出错"));
+        dispatch(UpdateOpenSnackbar());//开启snaker   
+      }else{
+        dispatch(GetPostUpdate("文章已更新",resStatus.post));
+        dispatch(UpdateOpenSnackbar());//开启snaker    
+        // dispatch(push);                                 
+      }
+    })
+    .catch(err=>{
+      dispatch(ErrorHandle(err.message));      
+      dispatch(UpdateOpenSnackbar());//开启snaker 
+    });
+  }
+} 

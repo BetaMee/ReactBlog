@@ -38,9 +38,22 @@ class Login extends Component{
       isLogin
     } =this.props;
 
-    const actions = [
+    const UnLoginedAction = [
       <FlatButton
         label="登陆"
+        primary={true}
+        onTouchTap={e=>this.handleLogin()}
+      />,
+      <FlatButton
+        label="取消"
+        primary={true}
+        onTouchTap={changeStatus}
+      />,
+    ];
+
+    const LoginedAction = [
+      <FlatButton
+        label="注销"
         primary={true}
         onTouchTap={e=>this.handleLogin()}
       />,
@@ -53,7 +66,7 @@ class Login extends Component{
     return (
         <Dialog
           title="登录"
-          actions={actions}
+          actions={isLogin==true?LoginedAction:UnLoginedAction}
           modal={true}
           open={status}
         >

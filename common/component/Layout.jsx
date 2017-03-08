@@ -2,15 +2,7 @@ import React,{Component} from  'react';
 import HeaderContainer from '../container/HeaderContainer.jsx';
 import Footer from './layout/Footer.jsx';
 
-const styles={
-  root:{
-    // position:"relative",
-    width:"100%",
-  },
-  main:{
-    paddingTop:"64px"
-  }
-};
+import CSSStyles from './Layout.css';
 
 
 class Layout extends Component {
@@ -21,11 +13,10 @@ class Layout extends Component {
 
   
   render() {
-    console.log("Layout");
     return (
-        <div style={styles.root}>
+        <div className={CSSStyles.root}>
           <HeaderContainer/>
-            <div  style={styles.main}>
+            <div  className={CSSStyles.main}>
               {this.props.children}
             </div>
           <Footer/>

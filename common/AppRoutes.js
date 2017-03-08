@@ -2,7 +2,7 @@ import React from 'react';
 import {Route, IndexRedirect,IndexRoute} from 'react-router';
 
 import Layout from './component/Layout.jsx';
-import NotFoundPage from './component/page/NotFoundPage.jsx';
+import NFContainer from './container/NFContainer.jsx';
 import IndexContainer from './container/IndexContainer.jsx';
 //post文章类型
 import PostsLayout from './component/posts/PostsLayout.jsx';
@@ -23,6 +23,7 @@ const AppRoutes = (
         <Route path="/posts/create" component={PostCreate}/>                                   
         <Route path="/posts/:postId" component={PostOne}/>      
       </Route>
+      <Route path="*" component={NFContainer}/>            
   </Route>
 );
 

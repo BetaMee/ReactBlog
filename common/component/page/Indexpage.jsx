@@ -2,7 +2,6 @@ import React,{Component} from 'react';
 import {Link} from 'react-router';
 import Paper from 'material-ui/Paper';
 import FlatButton from 'material-ui/FlatButton';
-import NotificationWifi from 'material-ui/svg-icons/notification/wifi';
 import InlineStyles from './Indexpage';
 import CSSStyles from './Indexpage.css';
 
@@ -68,7 +67,6 @@ class Indexpage extends Component {
             label="See My Posts" 
             labelPosition="after"
             primary={true} 
-            icon={<NotificationWifi />}
             style={InlineStyles.indexButton}
           />
         </Link>
@@ -78,7 +76,15 @@ class Indexpage extends Component {
         style={InlineStyles.indexIntro}
         zDepth={0}
       >
-        <div>这是一个开源的博客程序，使用react+redux+router</div>
+        <div className={CSSStyles.intro}>
+          <p>This is a blog demo built with <strong>React+Redux+ReactRouter+NodeJS </strong><br/>
+            to showcase the power of Server Side Rendering.<br/><br/>
+            The project is also inspired by 
+           <strong> <a className={CSSStyles.link} href="http://www.material-ui.com/" target="_blank"> Material-UI </a></strong>
+            and <strong><a className={CSSStyles.link} href="https://github.com/nswbmw/N-blog" target="_blank">N-Blog.</a></strong>
+          </p>
+         See more on <strong><a className={CSSStyles.link} href="https://github.com/BetaMee" target="_blank"> Github</a></strong>
+        </div>
       </Paper>
 
       {/*第三屏*/}

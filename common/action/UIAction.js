@@ -61,10 +61,18 @@ export const CreateOpenSnackbar = ()=>{
   }
 }
 
-export const REMOVE_OPEN_SNACKKBAR = "REMOVE_OPEN_SNACKKBAR";
+export const REMOVE_OPEN_SNACKBAR = "REMOVE_OPEN_SNACKBAR";
 
 export const RemoveOpenSnackbar = ()=>{
   return {
-    type:REMOVE_OPEN_SNACKKBAR
+    type:REMOVE_OPEN_SNACKBAR
+  }
+}
+
+export const UPDATA_OPEN_SNACKBAR = "UPDATA_OPEN_SNACKBAR";
+
+export const UpdateOpenSnackbar=()=>{
+  return {
+    type:UPDATA_OPEN_SNACKBAR
   }
 }

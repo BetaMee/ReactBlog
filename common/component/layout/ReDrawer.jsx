@@ -51,7 +51,7 @@ const ReDrawer = ({status,onClickItem,changeStatus})=> (
       <MenuItem 
         onTouchTap={e=>onClickItem(e,'catagories')}
         leftIcon={<ContentFlag />}
-      >归类</MenuItem>
+      >发表</MenuItem>
       <MenuItem 
         onTouchTap={e=>onClickItem(e,'RSS')}
         leftIcon={<CommunicationRss />}

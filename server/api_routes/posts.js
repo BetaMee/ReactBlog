@@ -156,7 +156,6 @@ router.post('/update', checkLogin, function(req, res, next) {
         res.redirect(`/api/posts/${result._id}`);
       })
       .catch(err=>{
-        console.log(err);
         res.send({
           success:true,
           message:err.message

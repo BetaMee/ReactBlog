@@ -24,13 +24,9 @@ const Footer = ()=> (
   <Paper style={InlineStyles.footer} zDepth={1}>
     <footer className={CSSStyles.footer}>
       <p>
-        This is a blog  to showcase universal rendering and routing with <strong>React</strong> and <strong>Express</strong>.
+        Built with <strong>❤</strong>︎ and <strong>code</strong> by @BetaMee. 
       </p>
-
-      <p>
-        Built with <strong>❤</strong>︎ and <strong>code</strong> by 橡树上.
-        Contribute on or read the tutorial on Github
-      </p>
+      <p>&copy;copyright 2015-2017</p>
     </footer>
   </Paper>
 )

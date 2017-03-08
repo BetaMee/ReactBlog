@@ -12,7 +12,8 @@ const mapStateToProps = (state, ownProps) => {
     editorState: state.editor,//post的state
     isLogin:state.user.isLogin,
     postMsg:state.posts.message,
-    snkStatus:state.UI.createSnackbar
+    snkStatus:state.UI.createSnackbar,
+    user:state.user.profile
   }
 }
 

@@ -10,7 +10,8 @@ import {
   LOGIN_OPEN_DIALOG,
   //create页Snackbar 状态
   CREATE_OPEN_SNACKBAR,
-  REMOVE_OPEN_SNACKKBAR
+  REMOVE_OPEN_SNACKBAR,
+  UPDATA_OPEN_SNACKBAR
 
 } from '../action/UIAction';
 
@@ -24,6 +25,7 @@ const initialState = {//UI组件的状态
   },
   createSnackbar:false,
   removeSnackbar:false,
+  updateSnackbar:false,
 };
 
 const UIReducer=(state=initialState,action)=>{
@@ -76,9 +78,13 @@ const UIReducer=(state=initialState,action)=>{
         //取反，表明取消状态,刚开始status是没有状态的，所以进行判断
         createSnackbar:!state.createSnackbar
       });
-    case REMOVE_OPEN_SNACKKBAR:
+    case REMOVE_OPEN_SNACKBAR:
       return Object.assign({},state,{
         removeSnackbar:!state.removeSnackbar
+      });
+     case UPDATA_OPEN_SNACKBAR:
+      return Object.assign({},state,{
+        updateSnackbar:!state.updateSnackbar
       });
     default:
       return state;

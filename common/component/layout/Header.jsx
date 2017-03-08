@@ -13,7 +13,7 @@ const InlineStyles={
     backgroundColor:"#B3E5FC"
   },
   titleStyle:{
-    color:"#01579B"
+    color:"#03A9F4"
   }
 };
 
@@ -37,7 +37,7 @@ class Header extends Component{
         browserHistory.push('/posts');
       break;
       case 'catagories':
-        browserHistory.push('/catagories');
+        browserHistory.push('/posts/create');
       break;
       case 'login':
         changeDialogStatus();
@@ -56,6 +56,7 @@ class Header extends Component{
       changeDrawerStatus,
       changeDialogStatus,
       getUserLogin,
+      getUserLogOut,
       changeLoginName,
       changeLoginPw,
       sendTokenToLogin,
@@ -86,6 +87,7 @@ class Header extends Component{
           status={dialogStatus.status}
           changeStatus={changeDialogStatus}
           onClickLogin={getUserLogin}
+          onClickLogOut= {getUserLogOut}
           loginState={LoginState}
           changeLoginName={changeLoginName}
           changeLoginPw={changeLoginPw}

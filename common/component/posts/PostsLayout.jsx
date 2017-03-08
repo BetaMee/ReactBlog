@@ -7,9 +7,6 @@ class PostsLayout extends Component {
   constructor(props){
     super(props);
   }
-  componentDidMount() {
-    console.log("post here");
-  }
   
   render() {
 
