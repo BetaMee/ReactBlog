@@ -93,7 +93,12 @@ module.exports={
 				warnings: false
 			}
 		}),
-    new ExtractTextPlugin('bundle.css')
+    new ExtractTextPlugin('bundle.css'),
+    new webpack.optimize.CommonsChunkPlugin({//拆分打包文件，出现共用文件则打包进common.js中
+            name: "commons",
+            filename: "commons.js",
+            minChunks:2
+    }),
 		// new CopyWebpackPlugin([
 		// 	{
 		// 		from: path.resolve(__dirname, 'src', 'assets'),
