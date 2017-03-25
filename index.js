@@ -15,6 +15,5 @@ require('asset-require-hook')({
     extensions: ['ttf','woff','svg','eot','woff2'],
     limit: 10000
 });
-
 //启动服务端脚本
 require('./server/server');
