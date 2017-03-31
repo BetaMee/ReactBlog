@@ -49,6 +49,7 @@ function renderFullPage(html, initiaState,env) {
           <script>
             window.__INITIAL_STATE__ = ${JSON.stringify(initiaState)};
           </script>
+          <script src="/assets/commons.js"></script>                    
           <script src="/assets/client.bundle.js"></script>
         </body>
         </html>
