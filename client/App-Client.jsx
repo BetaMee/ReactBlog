@@ -12,8 +12,8 @@ import rootReducer from '../common/reducers/index.js';
 // import './global-css/materialize.min.css';
 //MD UI库
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import getMuiTheme from 'material-ui/styles/getMuiTheme';//使用react context来补足server rendering 
-const muiTheme = getMuiTheme({userAgent: navigator.userAgent}); 
+import getMuiTheme from 'material-ui/styles/getMuiTheme';//使用react context来补足server rendering
+const muiTheme = getMuiTheme({userAgent: navigator.userAgent});
 
 
 // `__INITIAL_STATE__` 来自服务器端渲染
