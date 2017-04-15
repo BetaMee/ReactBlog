@@ -23,7 +23,7 @@ const configureStore=(preloadedState)=>{
 	  module.hot.accept('../reducers', () => { 
 		  const nextReducer = require('../reducers/index').default;
       store.replaceReducer(nextReducer);
-	  });   
+	  });
   }
   return store;
 }

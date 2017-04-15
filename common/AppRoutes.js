@@ -20,7 +20,7 @@ const AppRoutes = (
       <IndexRoute component={IndexContainer} />
       <Route path="/posts" component={PostsLayout}>   
         <IndexRoute component={Posts}/>  
-        <Route path="/posts/create" component={PostCreate}/>                                   
+        <Route path="/posts/create" component={PostCreate}/>
         <Route path="/posts/:postId" component={PostOne}/>      
       </Route>
       <Route path="*" component={NFContainer}/>            
