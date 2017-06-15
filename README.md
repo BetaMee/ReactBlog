@@ -44,4 +44,41 @@ run in production:`yarn run build` && `yarn run serve`
 ## What's included
 
 
+```
+isomorphic-react-quickstart/                // root directory
+├── client/                                  
+│     ├── assets/       //front-end resource               
+│     └── App-Client.jsx           
+├── common/                               
+│     ├── action/                            
+│     ├── component/                            
+│     ├── container/                              
+│     ├── reducer/                             
+│     ├── store/                                    
+│     └── AppRoutes.js                            
+├── config/                                  
+│     ├── default.js                             
+│     └── development.js
+│     └── production.js                          
+├── server/                               
+│     ├── api/                   //RESTful api      
+│     ├── lib/                         
+│     ├── logs/                              
+│     ├── middlewares/                               
+│     ├── models/               //DataBase Model                           
+│     ├── public/               //all bundles resource                         
+│     └── server.js             //server side script                                         
+├── .babelrc                         
+├── .eslintignore                          
+├── .eslintrc.js                            
+├── .gitignore       
+├── index.js               //start project                                                                     
+├── package.json        
+├── postcss.config.js                  
+├── README.md           
+├── webpack.config.dev.js                  
+├── webpack.config.prod.js                                     
+└── yarn.lock                             
+```
+
 
